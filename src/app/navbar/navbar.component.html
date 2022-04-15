@@ -1,0 +1,43 @@
+
+<!-- large screen sizes -->
+
+<div
+  class="main-div"
+  fxLayout="row"
+  fxLayoutAlign="start center"
+  fxLayoutGap="15px"
+  fxShow="true" fxShow.lt-sm="false"
+>
+  <p class="title">Laboratory</p>
+
+  <div
+    class="links"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    fxLayoutGap="40px"
+
+  >
+    <p class="link">Launchpad</p>
+    <p class="link">NFT Staking</p>
+    <p class="link button" (click)="onConnectWallet()">{{account ? (account | shorten: 10) : 'Connect Wallet'}}</p>
+  </div>
+
+</div>
+
+<!-- small screen sizes -->
+
+<div fxShow="true" fxShow.gt-xs="false" class="small-main-div">
+  <div fxLayout="row" class="small-heading" fxLayoutAlign="center center">
+    <p>Laboratory</p>
+    <mat-icon class="menu-icon" (click)="onMenuClicked()">{{menuIcon}}</mat-icon>
+  </div>
+
+  <div class="menu-div" *ngIf="menuClicked" fxLayoutAlign="center center">
+    <div class="menu-links" fxLayoutGap="20px" fxLayout="column">
+      <p class="sm-link">Launchpad</p>
+      <p class="sm-link">NFT Staking</p>
+      <p class="sm-link sm-button" (click)="onConnectWallet()">{{account ? (account | shorten: 10) : 'Connect Wallet'}}</p>
+    </div>
+  </div>
+
+</div>

@@ -1,1 +1,93 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0;}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #34d178;
+}
+
+
+@font-face{
+  font-family: 'binaria-light';
+  src: url('src/assets/fonts/Binaria-Light.otf')
+}
+
+@font-face{
+  font-family: 'binaria-medium';
+  src: url('src/assets/fonts/Binaria-Medium.otf')
+}
+
+@font-face{
+  font-family: 'binaria-bold';
+  src: url('src/assets/fonts/Binaria-Black.otf')
+}
+
+@font-face{
+  font-family: 'league-medium';
+  src: url('src/assets/fonts/LeagueSpartan-Bold.otf')
+}
+
+mat-dialog-container {
+  background-image: url('src/assets/card-details.png') !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  border-radius: 0px !important;
+  border-radius: 10px !important;
+  border: 1px solid var(--primary);
+  padding: 8vh !important;
+}
+
+@media screen and (max-width: 599px) {
+  mat-dialog-container{
+    padding: 3vh !important;
+  }
+}
+
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: var(--primary) !important;
+}
+.mat-checkbox-frame{
+  background-color: white !important;
+  border: 1px solid var(--primary);
+}
+
+
+.mat-button.mat-success,
+.mat-stroked-button.mat-success {
+    color: var(--primary);
+}
+.mat-button.mat-success:hover,
+.mat-stroked-button.mat-success:hover {
+  background-color: #f0fff3;
+}
+
+.mat-raised-button.mat-success,
+.mat-flat-button.mat-success,
+.mat-fab.mat-success,
+.mat-mini-fab.mat-success {
+  color: #f0fff3;
+  background-color: var(--primary);
+}
+
+.mat-icon-button.mat-success {
+  color:var(--primary);
+}
+
+::ng-deep .mat-form-field{
+  color: white !important;
+}
+
+.green-snackbar button {
+  /* background-color: rgb(65, 252, 134); */
+  color: var(--primary);
+  border: none;
+}

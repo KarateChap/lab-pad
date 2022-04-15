@@ -1,0 +1,59 @@
+.main-div{
+  color: white;
+  font-family: 'binaria-medium';
+}
+
+.contents{
+  margin: 3vh 5vh;
+  background-color: #d1ebdcc4;
+  padding: 3vh;
+  border-radius: 10px;
+}
+
+
+button{
+  width: 150px !important;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+  font-family: 'binaria-bold';
+}
+
+p{
+  margin-left: 2vh;
+}
+
+.form{
+  width: 30vh;
+}
+
+
+@media screen and (max-width: 599px) {
+  .contents{
+    margin: 0;
+    background-color: #d1ebdcc4;
+    padding: 10px 0;
+  }
+  .form{
+    width: 25vh;
+    margin-top: -20px;
+  }
+
+  .contents{
+    margin-bottom: 3vh;
+  }
+
+  .heading{
+    margin-bottom: 3vh;
+  }
+
+  .main-div{
+    height: 80vh;
+  }
+
+  button{
+    margin-bottom: 3vh;
+  }
+  .sub-div{
+    margin: 3vh 0;
+  }
+}

@@ -1,0 +1,108 @@
+<div class="main-div">
+  <div class="heading">
+    <p>The applicant should fill in the requirements such as the:</p>
+  </div>
+  <form [formGroup]="applicationForm" (ngSubmit)="onSubmit()">
+    <div class="contents">
+      <div
+        fxLayout.gt-sm="row wrap"
+        fxLayout.lt-sm="column"
+        fxLayoutGap="25px"
+        fxLayoutGap.lt-sm="25px"
+        fxLayoutAlign="center center"
+        class="sub-div"
+      >
+        <div fxLayout="column" class="form">
+          <mat-form-field class="example-full-width">
+            <mat-label>Project Name</mat-label>
+            <input matInput placeholder="Ex. The Laboratory" formControlName="projectName" />
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Website Link</mat-label>
+            <input matInput placeholder="Ex. thelaboratory.farm" formControlName="websiteLink" />
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Project Description</mat-label>
+            <input
+              matInput
+              placeholder="Ex. The most awesome project on cronos"
+              formControlName="projectDescription"
+            />
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Logo URL</mat-label>
+            <input matInput placeholder="Ex. https:google.com" formControlName="logoUrl" />
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Token Name</mat-label>
+            <input matInput placeholder="Ex. LABORATORY" formControlName="tokenName"/>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Token Symbol</mat-label>
+            <input matInput placeholder="Ex. LAB" formControlName="tokenSymbol" />
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="column" class="form">
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Token Address</mat-label>
+            <input
+              matInput
+              placeholder="Ex. 0x75F55E718Ea51191966f256893bD96Db2DE9eE94"
+              formControlName="tokenAddress"
+            />
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Token Supply/Sale Hardcap</mat-label>
+            <input matInput placeholder="Ex. 150,000,000 LAB"  formControlName="tokenSupply"/>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Sale Price (1 CRO/$TOKEN)</mat-label>
+            <input matInput placeholder="Ex. 1CRO/60LAB" formControlName="salePrice" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Sale Start Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="startDate">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Sale Start Time in UTC</mat-label>
+            <input matInput placeholder="Ex. UTC 0100" formControlName="startTime" />
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <mat-label>Duration in Days</mat-label>
+            <input matInput placeholder="Ex. 1 day" formControlName="duration" />
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="actions"
+      fxLayoutGap="20px"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+    >
+      <button
+        mat-raised-button
+        color="success"
+        [mat-dialog-close]="true"
+        type="button"
+      >
+        Cancel
+      </button>
+      <button
+        mat-raised-button
+        color="success"
+        [mat-dialog-close]="true"
+        type="submit"
+        [disabled]="applicationForm.invalid"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

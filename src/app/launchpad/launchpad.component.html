@@ -1,0 +1,184 @@
+<!-- Large Screen -->
+<div class="background" fxShow="true" fxShow.lt-sm="false"></div>
+<!-- Small Screen -->
+<div class="small-background" fxShow="true" fxShow.gt-xs="false"></div>
+
+<div class="main-div">
+  <div
+    class="header-div"
+    fxLayout.lt-sm="column"
+    fxLayout.gt-xs="row"
+    fxLayoutAlign.gt-xs="start end"
+    fxLayoutGap.lt-sm="20px"
+  >
+    <div class="left-div" fxLayoutGap="25px" fxLayout="column">
+      <p class="header-title">Laboratory Launchpad</p>
+      <p class="header-sub-title">
+        Get access to new tokens before they list on decentralized exchanges
+      </p>
+      <p class="apply-button" (click)="onApplyNow()">Apply Now</p>
+    </div>
+    <div class="right-div">
+      <p class="right-header-text">
+        Launching only the top tier projects on
+        <span style="color: var(--primary)">Cronos</span>
+      </p>
+    </div>
+  </div>
+
+
+  <div class="main-ido-div" fxLayoutAlign.lt-sm="start center" fxLayout="column">
+    <!-- active ido -->
+    <div class="ido-div">
+      <div class="ido-heading">
+        <p>Active <span style="color: var(--primary)">IDO</span></p>
+      </div>
+      <div
+        class="ido-items"
+        fxLayout="row wrap"
+        fxLayoutAlign.gt-xs="center center"
+      >
+        <div class="item-container">
+          <div class="ido-item">
+            <div class="ido-item">
+              <div class="item-header">
+                <div class="top-text">
+                  <p class="ido-status">IDO Active</p>
+                  <p class="top-sub-text">
+                    25/10/21 <span style="color: gray">to</span> 27/10/21
+                  </p>
+                </div>
+
+                <div class="middle-items">
+                  <img src="../../assets/project-logo.png" class="item-img" />
+                  <p>Coin Name $COIN</p>
+                  <p style="margin-top: 5px">COIN/CRO</p>
+                </div>
+              </div>
+              <div
+                class="item-content"
+                fxLayout="row"
+                fxLayoutAlign="space-around center"
+              >
+                <div class="content-left">
+                  <p class="cro-value">Total Raised</p>
+                  <p style="margin-bottom: 10px">50,000 CRO</p>
+                  <p class="participate-text">Participate</p>
+                </div>
+
+                <div class="content-right">
+                  <p class="cro-value">Hardcap</p>
+                  <p style="margin-bottom: 10px">50,000 CRO</p>
+                  <p class="details-text">Details</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- active ido -->
+
+    <!-- upcoming ido -->
+    <div class="ido-div">
+      <div class="ido-heading">
+        <p>Upcoming <span style="color: var(--primary)">IDO</span></p>
+      </div>
+      <div
+        class="ido-items"
+        fxLayout="row wrap"
+        fxLayoutAlign.gt-xs="center center"
+      >
+        <div class="item-container">
+          <div class="ido-item">
+            <div class="ido-item">
+              <div class="item-header">
+                <div class="top-text">
+                  <p class="ido-status upcoming-ido">IDO Upcoming</p>
+                  <p class="top-sub-text">
+                    25/10/21 <span style="color: gray">to</span> 27/10/21
+                  </p>
+                </div>
+
+                <div class="middle-items">
+                  <img src="../../assets/project-logo.png" class="item-img" />
+                  <p>Coin Name $COIN</p>
+                  <p style="margin-top: 5px">COIN/CRO</p>
+                </div>
+              </div>
+              <div
+                class="item-content"
+                fxLayout="row"
+                fxLayoutAlign="space-around center"
+              >
+                <div class="content-left">
+                  <p class="cro-value">Total Raised</p>
+                  <p style="margin-bottom: 10px">50,000 CRO</p>
+                  <p class="participate-text">Participate</p>
+                </div>
+
+                <div class="content-right">
+                  <p class="cro-value">Hardcap</p>
+                  <p style="margin-bottom: 10px">50,000 CRO</p>
+                  <p class="details-text">Details</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- upcoming ido -->
+
+    <!-- completed ido -->
+    <div class="ido-div">
+      <div class="ido-heading">
+        <p>Completed <span style="color: var(--primary)">IDO</span></p>
+      </div>
+      <div
+        class="ido-items"
+        fxLayout="row wrap"
+        fxLayoutAlign.gt-xs="center center"
+      >
+        <div class="item-container" style="opacity: 0.5">
+          <div class="ido-item">
+            <div class="ido-item">
+              <div class="item-header">
+                <div class="top-text">
+                  <p class="ido-status upcoming-ido">IDO Completed</p>
+                  <p class="top-sub-text">
+                    25/10/21 <span style="color: gray">to</span> 27/10/21
+                  </p>
+                </div>
+
+                <div class="middle-items">
+                  <img src="../../assets/project-logo.png" class="item-img" />
+                  <p>Coin Name $COIN</p>
+                  <p style="margin-top: 5px">COIN/CRO</p>
+                </div>
+              </div>
+              <div
+                class="item-content"
+                fxLayout="row"
+                fxLayoutAlign="space-around center"
+              >
+                <div class="content-left">
+                  <p class="cro-value">Total Raised</p>
+                  <p style="margin-bottom: 10px">50,000 CRO</p>
+                  <p class="participate-text">Participate</p>
+                </div>
+
+                <div class="content-right">
+                  <p class="cro-value">Hardcap</p>
+                  <p style="margin-bottom: 10px">50,000 CRO</p>
+                  <p class="details-text">Details</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- completed ido -->
+  </div>
+</div>

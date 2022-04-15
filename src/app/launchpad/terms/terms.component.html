@@ -1,0 +1,67 @@
+<div class="main-div">
+  <div class="heading">
+    <p>
+      Please read the
+      <span style="color: var(--primary)">Terms and Conditions</span> then agree
+      to all the following to proceed!
+    </p>
+  </div>
+
+  <form [formGroup]="termsForm" (ngSubmit)="onSubmit()">
+  <div class="contents">
+    <p>
+      <mat-checkbox class="checkbox" formControlName="chk1" (change)="checkAll($event)"
+        ><p>My token has no special transfers function.</p></mat-checkbox
+      >
+    </p>
+    <p>
+      <mat-checkbox class="checkbox" formControlName="chk2" (change)="checkAll($event)"
+        ><p>I have enough token (Token for the Sale) in my wallet for the Token
+          Sale.</p></mat-checkbox
+      >
+    </p>
+    <p>
+      <mat-checkbox class="checkbox" formControlName="chk3" (change)="checkAll($event)"
+        ><p>My token follows the ERC20 Standard.</p></mat-checkbox
+      >
+    </p>
+    <p>
+      <mat-checkbox class="checkbox" formControlName="chk4" (change)="checkAll($event)"
+        ><p>I understand that Lab Launchpad is not responsible for any issues or
+          loss of funds caused due to errors or exploits of code.</p></mat-checkbox
+      >
+    </p>
+    <p>
+      <mat-checkbox class="checkbox" formControlName="chk5" (change)="checkAll($event)"
+        ><p>I understand fees paid to launch a SALE are
+          non-recoverable.</p></mat-checkbox
+      >
+    </p>
+    <p>
+      <mat-checkbox class="checkbox" formControlName="chk6" (change)="checkAll($event)"
+        ><p>I am using Lab Launchpad as a software tool only and am responsible for
+          anything I create on it.</p></mat-checkbox
+      >
+    </p>
+    <p>
+      <mat-checkbox class="checkbox" formControlName="chk7" (change)="checkAll($event)"
+        ><p>I understand that I am responsible for following my local laws and
+          regulations including KYC and AML practices.</p></mat-checkbox
+      >
+    </p>
+    <p>
+      <mat-checkbox class="checkbox" formControlName="chk8" (change)="checkAll($event)"
+        ><p>I have read and agree to the terms and conditions.</p></mat-checkbox
+      >
+    </p>
+    <p><mat-checkbox class="checkbox" formControlName="chk9" (change)="agreeAll($event)"><p>Agree to All.</p></mat-checkbox></p>
+  </div>
+
+
+  <div class="actions" fxLayoutGap="20px" fxLayout="row" fxLayoutAlign="center center">
+    <button mat-raised-button color="success" [mat-dialog-close]="true" type="button">Cancel</button>
+    <button mat-raised-button color="success" [mat-dialog-close]="true" [disabled]="termsForm.invalid" type="submit">Confirm</button>
+  </div>
+
+</form>
+</div>

@@ -13,8 +13,11 @@ const routes: Routes = [
   },
   {path: 'launchpad', component: LaunchpadComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
-  {path: '**', redirectTo: 'launchpad'}
+  {path: 'admin', component: AdminComponent,
+  // canActivate: [AuthGuard]
+
+},
+  {path: '**', component: LaunchpadComponent}
 ];
 
 @NgModule({

@@ -1,4 +1,5 @@
 export interface NewSale {
+  email: string;
   projectName: string;
   websiteLink: string;
   projectDescription: string;

@@ -1,0 +1,80 @@
+.background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -10;
+  background-image: url("../../assets/background.jpg");
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.small-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: black;
+  z-index: -10;
+  height: 100vh;
+  width: 100%;
+}
+
+
+/* main contents */
+
+.main-div{
+  height: 100vh;
+}
+
+.img{
+  width: 40vh;
+  height: auto;
+}
+p{
+  font-family: 'binaria-medium';
+  font-size: 30px;
+  color: var(--primary);
+}
+
+mat-label{
+  color: white !important;
+  font-family: 'binaria-medium';
+  text-align: left;
+  width: 80px;
+  margin-right: 2vh;
+}
+
+input {
+  color: black !important;
+  background-color: white !important;
+  padding: 5px;
+  border-radius: 3px;
+  border: 0px solid transparent !important;
+}
+
+input:focus{
+  outline: none;
+}
+
+.form-div{
+  /* border: 1px solid var(--primary); */
+  border-radius: 10px;
+  padding: 2vh;
+  /* background-color: red; */
+}
+
+
+@media screen and (max-width: 599px) {
+  .img{
+    width: 30vh;
+    height: auto;
+  }
+  .form-div{
+    padding: 1vh;
+  }
+
+}

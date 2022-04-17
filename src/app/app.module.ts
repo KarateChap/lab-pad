@@ -25,7 +25,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-
+import { AuthGuard } from './guards/auth.guard';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     ShortenPipe,
     deleteCharPipe,
     TermsComponent,
-    ApplicationComponent
+    ApplicationComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,9 +57,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatButtonToggleModule
   ],
-  providers: [MatDatepickerModule],
+  providers: [MatDatepickerModule, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

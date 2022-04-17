@@ -91,3 +91,7 @@ mat-dialog-container {
   color: var(--primary);
   border: none;
 }
+
+::ng-deep mat-button-toggle-group{
+  outline: none;
+}

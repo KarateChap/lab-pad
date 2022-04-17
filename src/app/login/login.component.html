@@ -1,1 +1,47 @@
-<p>login works!</p>
+<!-- Large Screen -->
+<div class="background" fxShow="true" fxShow.lt-sm="false"></div>
+<!-- Small Screen -->
+<div class="small-background" fxShow="true" fxShow.gt-xs="false"></div>
+
+<div class="main-div" fxLayoutAlign="center center">
+  <div class="sub-div" fxLayout="column" fxLayoutGap="50px" fxLayoutAlign="center center">
+    <img src="../../assets/lab-logo.png" alt="" class="img" />
+
+    <div class="form-div" fxLayoutAlign="center center">
+      <form
+        fxLayout="column"
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()"
+        fxLayoutAlign="start start"
+        fxLayoutGap="15px"
+      >
+        <p>{{'Login' | uppercase}}</p>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" fxFlex=""/>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" />
+        </div>
+
+        <button
+          mat-raised-button
+          style="background-color: rgb(150, 150, 150); width: 100%;"
+          *ngIf="loginForm.invalid"
+        >
+          LOGIN
+        </button>
+        <button
+          *ngIf="loginForm.valid"
+          mat-raised-button
+          color="success"
+          type="submit"
+          style="width: 100%;"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

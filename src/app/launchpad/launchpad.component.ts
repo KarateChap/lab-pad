@@ -10,6 +10,8 @@ import { TermsComponent } from './terms/terms.component';
 })
 export class LaunchpadComponent implements OnInit {
 
+  ela: number [] = [1,2,3,4]
+
   constructor(private dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {

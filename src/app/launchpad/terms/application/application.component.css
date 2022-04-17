@@ -8,6 +8,7 @@
   background-color: #d1ebdcc4;
   padding: 3vh;
   border-radius: 10px;
+
 }
 
 
@@ -20,10 +21,12 @@ button{
 
 p{
   margin-left: 2vh;
+
 }
 
 .form{
   width: 30vh;
+
 }
 
 

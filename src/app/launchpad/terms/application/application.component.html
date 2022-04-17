@@ -1,6 +1,7 @@
 <div class="main-div">
-  <div class="heading">
-    <p>The applicant should fill in the requirements such as the:</p>
+  <div class="heading" fxLayoutGap="10px" fxLayout="column">
+    <p style="color: rgb(226, 66, 66);">*KEEP IN MIND* Submit your application atleast 1 week prior your desired launch Date!</p>
+    <p>Please follow the placeholders as guides for proper formatting and fill in the requirements such as the:</p>
   </div>
   <form [formGroup]="applicationForm" (ngSubmit)="onSubmit()">
     <div class="contents">
@@ -13,6 +14,10 @@
         class="sub-div"
       >
         <div fxLayout="column" class="form">
+          <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Ex. admin@gmail.com" formControlName="email" />
+          </mat-form-field>
           <mat-form-field class="example-full-width">
             <mat-label>Project Name</mat-label>
             <input matInput placeholder="Ex. The Laboratory" formControlName="projectName" />
@@ -31,7 +36,7 @@
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <mat-label>Logo URL</mat-label>
-            <input matInput placeholder="Ex. https:google.com" formControlName="logoUrl" />
+            <input matInput placeholder="Ex. https://i.pinimg.com/474x/b6/cc/cd/b6cccddfb5ecc9f98fd3c5f297540256.jpg" formControlName="logoUrl" />
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <mat-label>Token Name</mat-label>
@@ -55,11 +60,11 @@
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <mat-label>Token Supply/Sale Hardcap</mat-label>
-            <input matInput placeholder="Ex. 150,000,000 LAB"  formControlName="tokenSupply"/>
+            <input matInput placeholder="Ex. 150000000"  formControlName="tokenSupply"/>
           </mat-form-field>
           <mat-form-field class="example-full-width">
-            <mat-label>Sale Price (1 CRO/$TOKEN)</mat-label>
-            <input matInput placeholder="Ex. 1CRO/60LAB" formControlName="salePrice" />
+            <mat-label>Sale Price (1 CRO = __ $TOKEN)</mat-label>
+            <input matInput placeholder="Ex. 60" formControlName="salePrice" />
           </mat-form-field>
           <mat-form-field>
             <mat-label>Sale Start Date</mat-label>
@@ -74,7 +79,7 @@
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <mat-label>Duration in Days</mat-label>
-            <input matInput placeholder="Ex. 1 day" formControlName="duration" />
+            <input matInput placeholder="Ex. 1" formControlName="duration" />
           </mat-form-field>
         </div>
       </div>

@@ -1,5 +1,6 @@
 export interface Sale {
   id: string;
+  email: string;
   projectName: string;
   websiteLink: string;
   projectDescription: string;

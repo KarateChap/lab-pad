@@ -109,6 +109,7 @@
   color: white;
   font-size: 25px;
   margin-bottom: 3vh;
+  margin-top: 3vh;
 }
 
 .item-container{
@@ -116,8 +117,8 @@
 }
 
 .ido-item {
-  width: 30vh;
-  height: 30vh;
+  width: 27vh;
+  height: 32vh;
   border-right: 1px solid #34d17886;
   border-bottom: 1px solid #34d17886;
   border-left: 1px solid #34d17886;
@@ -154,6 +155,7 @@
 
 .top-sub-text {
   font-size: 11px;
+  margin-top: 10px;
 }
 
 .middle-items {
@@ -239,5 +241,9 @@
 
   .main-ido-div {
     height: 65vh;
+  }
+
+  .ido-item{
+    margin-top: 20px;
   }
 }

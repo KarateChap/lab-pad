@@ -5,15 +5,17 @@ import { BackendService } from 'src/app/services/backend.service';
 @Component({
   selector: 'app-application',
   templateUrl: './application.component.html',
-  styleUrls: ['./application.component.css']
+  styleUrls: ['./application.component.css'],
 })
 export class ApplicationComponent implements OnInit {
-
   applicationForm: FormGroup;
-  constructor(private backendService: BackendService) { }
+  constructor(private backendService: BackendService) {}
 
   ngOnInit(): void {
     this.applicationForm = new FormGroup({
+      email: new FormControl('', {
+        validators: [Validators.required, Validators.email],
+      }),
       projectName: new FormControl('', Validators.required),
       websiteLink: new FormControl('', Validators.required),
       projectDescription: new FormControl('', Validators.required),
@@ -21,16 +23,27 @@ export class ApplicationComponent implements OnInit {
       tokenName: new FormControl('', Validators.required),
       tokenSymbol: new FormControl('', Validators.required),
       tokenAddress: new FormControl('', Validators.required),
-      tokenSupply: new FormControl('', Validators.required),
-      salePrice: new FormControl('', Validators.required),
+      tokenSupply: new FormControl('', {
+        validators: [Validators.required, Validators.pattern(/^[0-9]*$/)],
+      }),
+      salePrice: new FormControl('', {
+        validators: [Validators.required, Validators.pattern(/^[0-9]*$/)],
+      }),
       startDate: new FormControl('', Validators.required),
       startTime: new FormControl('', Validators.required),
-      duration: new FormControl('', Validators.required),
-    })
+      duration: new FormControl('', {
+        validators: [
+          Validators.required,
+          Validators.pattern(/^[0-9]*$/),
+          Validators.maxLength(1),
+        ],
+      }),
+    });
   }
 
-  onSubmit(){
+  onSubmit() {
     this.backendService.addTokenSale({
+      email: this.applicationForm.value.email,
       projectName: this.applicationForm.value.projectName,
       websiteLink: this.applicationForm.value.websiteLink,
       projectDescription: this.applicationForm.value.projectDescription,
@@ -43,7 +56,7 @@ export class ApplicationComponent implements OnInit {
       startDate: this.applicationForm.value.startDate,
       startTime: this.applicationForm.value.startTime,
       duration: this.applicationForm.value.duration,
-      status: 'pending'
-    })
+      status: 'pending',
+    });
   }
 }

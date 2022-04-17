@@ -1,1 +1,95 @@
-<p>admin works!</p>
+<!-- Large Screen -->
+<div class="background" fxShow="true" fxShow.lt-sm="false"></div>
+<!-- Small Screen -->
+<div class="small-background" fxShow="true" fxShow.gt-xs="false"></div>
+
+<div
+  class="main-div"
+  fxLayoutAlign.lt-sm="center center"
+  fxLayout="column"
+  fxLayoutGap="50px"
+>
+  <div>
+    <mat-button-toggle-group (change)="onToggleChanges($event.value)" [value]="toggleValue">
+      <mat-button-toggle value="Pending">Pending</mat-button-toggle>
+      <mat-button-toggle value="Accepted">Accepted</mat-button-toggle>
+      <mat-button-toggle value="Active">Active</mat-button-toggle>
+      <mat-button-toggle value="Completed">Completed</mat-button-toggle>
+      <mat-button-toggle value="Rejected">Rejected</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <p class="heading-title">
+    {{ toggleValue }} <span style="color: var(--primary)">IDOs</span>
+  </p>
+
+  <div class="item-container" fxLayout="row wrap" fxLayoutAlign="center start">
+    <div class="ido-item card-item" *ngFor="let sale of sales; let i = index">
+      <div class="ido-item">
+        <div class="item-header">
+          <div class="top-text">
+            <p
+              class="ido-status"
+              [ngStyle]="{
+                'background-color':
+                  sale.status == 'pending'
+                    ? 'rgb(52, 165, 146) '
+                    : sale.status == 'accepted'
+                    ? 'var(--primary)'
+                    : sale.status == 'active'
+                    ? 'rgb(218, 173, 52)'
+                    : 'gray'
+              }"
+            >
+              {{ sale.status | uppercase }}
+            </p>
+            <p class="top-sub-text">
+              {{ sale.startDate.toDate() | date: "shortDate" }}
+              <span style="color: gray">to</span>
+              {{
+                sale.startDate
+                  .toDate()
+                  .setDate(sale.startDate.toDate().getDate() + +sale.duration)
+                  | date: "shortDate"
+              }}
+            </p>
+          </div>
+          <mat-icon class="close-icon" (click)="onSetRejected(sale.id, i)">close</mat-icon>
+          <div class="middle-items">
+            <img src="../../assets/project-logo.png" class="item-img" />
+            <p>{{ (sale.tokenName | shorten: 15) + " " + sale.tokenSymbol }}</p>
+            <p style="margin-top: 5px">{{ sale.tokenSymbol }}/CRO</p>
+          </div>
+        </div>
+        <div
+          class="item-content"
+          fxLayout="row"
+          fxLayoutAlign="space-around center"
+        >
+          <div class="content-left">
+            <p class="details-text accept-text" [ngStyle]="{'background-color' : sale.status == 'completed' ? 'gray' : 'var(--primary)'}" (click)="onSetStatus(sale.id, i)">
+              {{
+                sale.status == "pending"
+                  ? "Accept"
+                  : sale.status == "accepted"
+                  ? "Set Active"
+                  : sale.status == "rejected"
+                  ? "Set Pending"
+                  : sale.status == 'active'
+                  ? 'Set Completed'
+                  : "Completed"
+              }}
+            </p>
+          </div>
+          <div class="content-right">
+            <p class="cro-value">Hardcap</p>
+            <p style="margin-bottom: 10px">
+              {{ (+sale.tokenSupply / +sale.salePrice).toFixed(2) }} CRO
+            </p>
+            <p class="details-text">Details</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

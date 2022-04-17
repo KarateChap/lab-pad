@@ -38,8 +38,8 @@
         fxLayout="row wrap"
         fxLayoutAlign.gt-xs="center center"
       >
-        <div class="item-container">
-          <div class="ido-item">
+        <div class="item-container" *ngFor="let lai of ela">
+          <div class="ido-item" >
             <div class="ido-item">
               <div class="item-header">
                 <div class="top-text">
@@ -89,7 +89,7 @@
         fxLayout="row wrap"
         fxLayoutAlign.gt-xs="center center"
       >
-        <div class="item-container">
+        <div class="item-container"  *ngFor="let lai of ela">
           <div class="ido-item">
             <div class="ido-item">
               <div class="item-header">
@@ -140,7 +140,7 @@
         fxLayout="row wrap"
         fxLayoutAlign.gt-xs="center center"
       >
-        <div class="item-container" style="opacity: 0.5">
+        <div class="item-container" style="opacity: 0.5"  *ngFor="let lai of ela">
           <div class="ido-item">
             <div class="ido-item">
               <div class="item-header">

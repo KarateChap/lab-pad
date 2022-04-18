@@ -217,10 +217,14 @@ mat-button-toggle-group{
   margin-bottom: 5px; color: gray;
 }
 
+.loader ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: var(--primary);
+}
+
 @media screen and (max-width: 599px) {
 
   .main-div {
-    padding: 15vh 3vh 5vh 3vh;
+    padding: 15vh 3vh 0vh 3vh;
   }
 
   .mat-button-toggle{

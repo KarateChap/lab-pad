@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'launchpad', component: LaunchpadComponent},
   {path: 'login', component: LoginComponent},
   {path: 'admin', component: AdminComponent,
-  // canActivate: [AuthGuard]
+  canActivate: [AuthGuard]
 
 },
   {path: '**', component: LaunchpadComponent}

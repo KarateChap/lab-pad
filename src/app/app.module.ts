@@ -27,6 +27,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { AuthGuard } from './guards/auth.guard';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { DetailsComponent } from './admin/details/details.component';
+import {ClipboardModule} from '@angular/cdk/clipboard';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { DetailsComponent2 } from './launchpad/details/details.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +44,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     deleteCharPipe,
     TermsComponent,
     ApplicationComponent,
+    DetailsComponent,
+    DetailsComponent2
   ],
   imports: [
     BrowserModule,
@@ -58,7 +65,10 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSnackBarModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatProgressSpinnerModule,
+    ClipboardModule,
+    MatTooltipModule
   ],
   providers: [MatDatepickerModule, AuthGuard],
   bootstrap: [AppComponent]

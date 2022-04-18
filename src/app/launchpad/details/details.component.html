@@ -1,0 +1,54 @@
+<div class="main-div" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="25px" fxLayoutAlign.lt-sm="start start">
+
+
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="40px">
+    <p class="header-text"><span>{{sale.projectName | uppercase}}</span></p>
+    <img [src]="sale.logoUrl" alt="" class="img" />
+  </div>
+
+  <div fxLayoutAlign="start start">
+    <div
+    class="sub-div"
+    fxLayoutAlign="start start"
+    fxLayout="row"
+    fxLayoutGap="20px"
+    fxLayout="row"
+  >
+    <div fxLayoutAlign="start end" fxLayout="column" class="left-div">
+      <p class="left-text">Project Name:</p>
+      <p class="left-text">Website Link:</p>
+      <p class="left-text">Token Name:</p>
+      <p class="left-text">Token Symbol:</p>
+      <p class="left-text">Token Address:</p>
+      <p class="left-text">Total Supply/Hardcap:</p>
+      <p class="left-text">Presale Price per CRO:</p>
+      <p class="left-text">Target Launch Date:</p>
+      <p class="left-text">Target Launch Time:</p>
+      <p class="left-text">Target End Date:</p>
+    </div>
+    <div fxLayoutAlign="start start" fxLayout="column" class="right-div">
+      <p class="right-text" [cdkCopyToClipboard]="sale.projectName" (click)="onCopyText()">{{ sale.projectName }}</p>
+      <p class="right-text" [cdkCopyToClipboard]="sale.websiteLink" (click)="onCopyText()" matTooltip="Click to Copy Link">{{ sale.websiteLink }}</p>
+      <p class="right-text" [cdkCopyToClipboard]="sale.tokenName" (click)="onCopyText()">{{ sale.tokenName }}</p>
+      <p class="right-text" [cdkCopyToClipboard]="sale.tokenSymbol" (click)="onCopyText()">{{ sale.tokenSymbol }}</p>
+      <p class="right-text" [cdkCopyToClipboard]="sale.tokenAddress" (click)="onCopyText()">{{ sale.tokenAddress }}</p>
+      <p class="right-text" [cdkCopyToClipboard]="sale.tokenSupply" (click)="onCopyText()">{{ sale.tokenSupply }}</p>
+      <p class="right-text" [cdkCopyToClipboard]="sale.salePrice" (click)="onCopyText()">{{ sale.salePrice }}</p>
+      <p class="right-text" [cdkCopyToClipboard]="sale.startDate" (click)="onCopyText()">{{ sale.startDate.toDate() | date: "shortDate" }}</p>
+      <p class="right-text" [cdkCopyToClipboard]="sale.startTime" (click)="onCopyText()">{{ sale.startTime }}</p>
+      <p class="right-text">
+        {{
+          sale.startDate.toDate().setDate(sale.startDate.toDate().getDate() + +sale.duration)| date: "shortDate"
+        }}
+      </p>
+    </div>
+  </div>
+  </div>
+
+  <div fxLayoutAlign="center center" fxLayout="column">
+    <p style="text-align: left; color: white;">Project Description</p>
+    <p class="projectDescription" [cdkCopyToClipboard]="sale.projectDescription" (click)="onCopyText()">{{ sale.projectDescription}}</p>
+  </div>
+
+
+</div>

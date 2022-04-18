@@ -23,7 +23,11 @@
     {{ toggleValue }} <span style="color: var(--primary)">IDOs</span>
   </p>
 
-  <div class="item-container" fxLayout="row wrap" fxLayoutAlign="center start">
+  <div *ngIf="isLoading" fxLayoutAlign="center center" class="loader">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div class="item-container" fxLayout="row wrap" fxLayoutAlign="center start" *ngIf="!isLoading">
     <div class="ido-item card-item" *ngFor="let sale of sales; let i = index">
       <div class="ido-item">
         <div class="item-header">
@@ -54,9 +58,9 @@
               }}
             </p>
           </div>
-          <mat-icon class="close-icon" (click)="onSetRejected(sale.id, i)">close</mat-icon>
+          <mat-icon class="close-icon" (click)="onSetRejected(sale.id, i)" *ngIf="sale.status != 'rejected' && sale.status !='completed'">close</mat-icon>
           <div class="middle-items">
-            <img src="../../assets/project-logo.png" class="item-img" />
+            <img [src]="sale.logoUrl" class="item-img" />
             <p>{{ (sale.tokenName | shorten: 15) + " " + sale.tokenSymbol }}</p>
             <p style="margin-top: 5px">{{ sale.tokenSymbol }}/CRO</p>
           </div>
@@ -86,7 +90,7 @@
             <p style="margin-bottom: 10px">
               {{ (+sale.tokenSupply / +sale.salePrice).toFixed(2) }} CRO
             </p>
-            <p class="details-text">Details</p>
+            <p class="details-text" (click)="onOpenDetails(i)">Details</p>
           </div>
         </div>
       </div>

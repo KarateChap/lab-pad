@@ -4,20 +4,23 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
 import { NewSale } from '../models/new-sale.model';
 import { Sale } from '../models/sale.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class BackendService {
-
   sale: Sale[] = [];
+
+  allSale: Sale[] = [];
+  allSaleChanged = new Subject<Sale[]>();
+
   saleChanged = new Subject<Sale[]>();
   constructor(private af: AngularFirestore, private snackBar: MatSnackBar) {}
 
-
   addTokenSale(sale: NewSale) {
     this.af.collection('sale').add(sale);
-    this.snackBar.open("Token Sale Information Submitted!", "close", {
+    this.snackBar.open('Token Sale Information Submitted!', 'close', {
       duration: 2000,
-      panelClass: ['green-snackbar']
+      panelClass: ['green-snackbar'],
     });
   }
 
@@ -36,33 +39,52 @@ export class BackendService {
 
   onAcceptSale(id: string) {
     this.af.doc('sale/' + id).update({ status: 'accepted' });
-    this.openSnackBar('Sale Accepted Successfully', 'close')
+    this.openSnackBar('Sale Accepted Successfully', 'close');
   }
 
   onSetActiveSale(id: string) {
     this.af.doc('sale/' + id).update({ status: 'active' });
-    this.openSnackBar('Sale Set to Active Successfully', 'close')
+    this.openSnackBar('Sale Set to Active Successfully', 'close');
   }
 
-  onSetCompletedSale(id: string){
+  onSetCompletedSale(id: string) {
     this.af.doc('sale/' + id).update({ status: 'completed' });
-    this.openSnackBar('Sale Set to Completed Successfully', 'close')
+    this.openSnackBar('Sale Set to Completed Successfully', 'close');
   }
-  onRejectSale(id: string){
+  onRejectSale(id: string) {
     this.af.doc('sale/' + id).update({ status: 'rejected' });
-    this.openSnackBar('Sale Rejected Successfully', 'close')
+    this.openSnackBar('Sale Rejected Successfully', 'close');
   }
 
-  onSetPendingSale(id: string){
+  onSetPendingSale(id: string) {
     this.af.doc('sale/' + id).update({ status: 'pending' });
-    this.openSnackBar('Sale Set to Pending Successfully', 'close')
+    this.openSnackBar('Sale Set to Pending Successfully', 'close');
   }
 
-  openSnackBar(message: string, action: string){
+  openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 3000,
-      panelClass: ['green-snackbar']
+      panelClass: ['green-snackbar'],
     });
   }
 
+  fetchAllSale() {
+    this.af
+      .collection('sale')
+      .snapshotChanges()
+      .pipe(
+        map((docArray) => {
+          return docArray.map((doc) => {
+            return {
+              id: doc.payload.doc.id,
+              ...(doc.payload.doc.data() as any),
+            };
+          });
+        })
+      )
+      .subscribe((sales: Sale[]) => {
+        this.allSale = sales;
+        this.allSaleChanged.next([...this.allSale]);
+      });
+  }
 }

@@ -26,8 +26,11 @@
     </div>
   </div>
 
-
-  <div class="main-ido-div" fxLayoutAlign.lt-sm="start center" fxLayout="column">
+  <div
+    class="main-ido-div"
+    fxLayoutAlign.lt-sm="start center"
+    fxLayout="column"
+  >
     <!-- active ido -->
     <div class="ido-div">
       <div class="ido-heading">
@@ -38,21 +41,32 @@
         fxLayout="row wrap"
         fxLayoutAlign.gt-xs="center center"
       >
-        <div class="item-container" *ngFor="let lai of ela">
-          <div class="ido-item" >
+        <div
+          class="item-container"
+          *ngFor="let active of activeSales; let i = index"
+        >
+          <div class="ido-item">
             <div class="ido-item">
               <div class="item-header">
                 <div class="top-text">
                   <p class="ido-status">IDO Active</p>
                   <p class="top-sub-text">
-                    25/10/21 <span style="color: gray">to</span> 27/10/21
+                    {{ active.startDate.toDate() | date: "shortDate" }}
+                    <span style="color: gray">to</span
+                    >{{
+                      active.startDate
+                        .toDate()
+                        .setDate(
+                          active.startDate.toDate().getDate() + +active.duration
+                        ) | date: "shortDate"
+                    }}
                   </p>
                 </div>
 
                 <div class="middle-items">
-                  <img src="../../assets/project-logo.png" class="item-img" />
-                  <p>Coin Name $COIN</p>
-                  <p style="margin-top: 5px">COIN/CRO</p>
+                  <img [src]="active.logoUrl" class="item-img" />
+                  <p>{{ active.projectName + " " + active.tokenSymbol }}</p>
+                  <p style="margin-top: 5px">{{ active.tokenSymbol }}/CRO</p>
                 </div>
               </div>
               <div
@@ -68,8 +82,13 @@
 
                 <div class="content-right">
                   <p class="cro-value">Hardcap</p>
-                  <p style="margin-bottom: 10px">50,000 CRO</p>
-                  <p class="details-text">Details</p>
+                  <p style="margin-bottom: 10px">
+                    {{
+                      (+active.tokenSupply / +active.salePrice).toFixed(2)
+                    }}
+                    CRO
+                  </p>
+                  <p class="details-text" (click)="onShowActiveDetails(i)">Details</p>
                 </div>
               </div>
             </div>
@@ -89,21 +108,33 @@
         fxLayout="row wrap"
         fxLayoutAlign.gt-xs="center center"
       >
-        <div class="item-container"  *ngFor="let lai of ela">
+        <div
+          class="item-container"
+          *ngFor="let upcoming of upcomingSales; let i = index"
+        >
           <div class="ido-item">
             <div class="ido-item">
               <div class="item-header">
                 <div class="top-text">
                   <p class="ido-status upcoming-ido">IDO Upcoming</p>
                   <p class="top-sub-text">
-                    25/10/21 <span style="color: gray">to</span> 27/10/21
+                    {{ upcoming.startDate.toDate() | date: "shortDate" }}
+                    <span style="color: gray">to</span>
+                    {{
+                      upcoming.startDate
+                        .toDate()
+                        .setDate(
+                          upcoming.startDate.toDate().getDate() +
+                            +upcoming.duration
+                        ) | date: "shortDate"
+                    }}
                   </p>
                 </div>
 
                 <div class="middle-items">
-                  <img src="../../assets/project-logo.png" class="item-img" />
-                  <p>Coin Name $COIN</p>
-                  <p style="margin-top: 5px">COIN/CRO</p>
+                  <img [src]="upcoming.logoUrl" class="item-img" />
+                  <p>{{ upcoming.projectName + " " + upcoming.tokenSymbol }}</p>
+                  <p style="margin-top: 5px">{{ upcoming.tokenSymbol }}/CRO</p>
                 </div>
               </div>
               <div
@@ -119,8 +150,13 @@
 
                 <div class="content-right">
                   <p class="cro-value">Hardcap</p>
-                  <p style="margin-bottom: 10px">50,000 CRO</p>
-                  <p class="details-text">Details</p>
+                  <p style="margin-bottom: 10px">
+                    {{
+                      (+upcoming.tokenSupply / +upcoming.salePrice).toFixed(2)
+                    }}
+                    CRO
+                  </p>
+                  <p class="details-text" (click)="onShowUpcomingDetails(i)">Details</p>
                 </div>
               </div>
             </div>
@@ -140,21 +176,36 @@
         fxLayout="row wrap"
         fxLayoutAlign.gt-xs="center center"
       >
-        <div class="item-container" style="opacity: 0.5"  *ngFor="let lai of ela">
+        <div
+          class="item-container"
+          style="opacity: 0.5"
+          *ngFor="let completed of completedSales; let i = index"
+        >
           <div class="ido-item">
             <div class="ido-item">
               <div class="item-header">
                 <div class="top-text">
                   <p class="ido-status upcoming-ido">IDO Completed</p>
                   <p class="top-sub-text">
-                    25/10/21 <span style="color: gray">to</span> 27/10/21
+                    {{ completed.startDate.toDate() | date: "shortDate" }}
+                    <span style="color: gray">to</span>
+                    {{
+                      completed.startDate
+                        .toDate()
+                        .setDate(
+                          completed.startDate.toDate().getDate() +
+                            +completed.duration
+                        ) | date: "shortDate"
+                    }}
                   </p>
                 </div>
 
                 <div class="middle-items">
-                  <img src="../../assets/project-logo.png" class="item-img" />
-                  <p>Coin Name $COIN</p>
-                  <p style="margin-top: 5px">COIN/CRO</p>
+                  <img [src]="completed.logoUrl" class="item-img" />
+                  <p>
+                    {{ completed.projectName + " " + completed.tokenSymbol }}
+                  </p>
+                  <p style="margin-top: 5px">{{ completed.tokenSymbol }}/CRO</p>
                 </div>
               </div>
               <div
@@ -170,8 +221,13 @@
 
                 <div class="content-right">
                   <p class="cro-value">Hardcap</p>
-                  <p style="margin-bottom: 10px">50,000 CRO</p>
-                  <p class="details-text">Details</p>
+                  <p style="margin-bottom: 10px">
+                    {{
+                      (+completed.tokenSupply / +completed.salePrice).toFixed(2)
+                    }}
+                    CRO
+                  </p>
+                  <p class="details-text" (click)="onShowCompletedDetails(i)">Details</p>
                 </div>
               </div>
             </div>

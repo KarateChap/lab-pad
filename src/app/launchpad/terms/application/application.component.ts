@@ -9,9 +9,11 @@ import { BackendService } from 'src/app/services/backend.service';
 })
 export class ApplicationComponent implements OnInit {
   applicationForm: FormGroup;
+  today: Date = new Date();
   constructor(private backendService: BackendService) {}
 
   ngOnInit(): void {
+    this.today = new Date(this.today.setDate(this.today.getDate() + 7));
     this.applicationForm = new FormGroup({
       email: new FormControl('', {
         validators: [Validators.required, Validators.email],

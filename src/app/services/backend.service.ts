@@ -14,6 +14,8 @@ export class BackendService {
   allSaleChanged = new Subject<Sale[]>();
 
   saleChanged = new Subject<Sale[]>();
+  activeSale: Sale;
+  activeSaleChanged = new Subject<Sale>();
   constructor(private af: AngularFirestore, private snackBar: MatSnackBar) {}
 
   addTokenSale(sale: NewSale) {
@@ -86,5 +88,17 @@ export class BackendService {
         this.allSale = sales;
         this.allSaleChanged.next([...this.allSale]);
       });
+  }
+
+  fetchActiveTokenSale(id: string) {
+    this.af.doc('sale/' + id)
+    .snapshotChanges()
+    .subscribe(sale =>{
+      this.activeSale = {
+        id: sale.payload.id,
+        ...sale.payload.data() as NewSale
+      }
+      this.activeSaleChanged.next(this.activeSale);
+    })
   }
 }

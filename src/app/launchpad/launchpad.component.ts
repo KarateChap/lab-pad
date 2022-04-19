@@ -67,6 +67,7 @@ export class LaunchpadComponent implements OnInit, OnDestroy{
     }})
   }
 
+
   ngOnDestroy(): void {
       this.subscription.forEach(element => {
         element.unsubscribe();

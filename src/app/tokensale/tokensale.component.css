@@ -1,0 +1,140 @@
+.background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -10;
+  background-image: url("../../assets/background.jpg");
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.background-img {
+  width: 100%;
+  height: auto;
+}
+
+.small-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: black;
+  z-index: -10;
+  height: 100vh;
+  width: 100%;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+  background-color: var(--primary);
+}
+
+::ng-deep .mat-progress-bar-buffer {
+  background: black;
+}
+
+::ng-deep .mat-progress-bar {
+  border-radius: 5px;
+  height: 15px !important;
+  border: 1px solid var(--primary);
+}
+
+.img{
+  width: 35vh;
+  height: auto;
+}
+
+p{
+  color: white;
+  font-family: 'binaria';
+}
+
+
+.main-div{
+  height: 100vh;
+}
+
+.percentage{
+  margin-top: 20px;
+}
+
+.heading{
+  font-size: 25px;
+  letter-spacing: 0.1em;
+  margin-top: 15px;
+}
+
+.progress{
+  font-family: 'binaria-light';
+  letter-spacing: 0.05em;
+}
+
+
+::ng-deep .mat-form-field,.mat-input-element {
+  color: var(--primary);
+}
+
+::ng-deep .mat-form-field,.mat-form-field-ripple {
+  color: var(--primary);
+}
+
+mat-label{
+  color: var(--primary);
+  font-family: 'binaria';
+}
+
+::ng-deep .mat-form-field-underline {
+  background-color: var(--primary) !important;
+
+}
+
+.mat-input-element {
+  caret-color: #34d178 !important;
+}
+
+::ng-deep .mat-form-field-ripple {
+  background-color: var(--primary) !important;
+}
+
+.form{
+  width: 100%;
+}
+
+.loader ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: var(--primary);
+}
+
+.deposit{
+  background-color: black;
+  border-right: 1px solid var(--primary);
+  border-bottom: 1px solid var(--primary);
+  border-left: 1px solid var(--primary);
+  padding: 10px;
+  padding-top: 12px;
+  border-radius: 10px;
+  width: 150px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.progress-bar{
+  width: 40vh;
+}
+
+@media screen and (max-width: 599px) {
+ .progress-bar{
+   width: 60vw;
+ }
+
+ .form{
+   width: 60vw;
+ }
+
+ .img{
+  width: 50vw;
+  height: auto;
+}
+}

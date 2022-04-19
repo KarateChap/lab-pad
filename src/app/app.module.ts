@@ -32,6 +32,10 @@ import { DetailsComponent } from './admin/details/details.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { DetailsComponent2 } from './launchpad/details/details.component';
+import { ErrorComponent } from './error/error.component';
+import { TokensaleComponent } from './tokensale/tokensale.component';
+import {ProgressBarModule} from "angular-progress-bar"
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -45,7 +49,9 @@ import { DetailsComponent2 } from './launchpad/details/details.component';
     TermsComponent,
     ApplicationComponent,
     DetailsComponent,
-    DetailsComponent2
+    DetailsComponent2,
+    ErrorComponent,
+    TokensaleComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +74,9 @@ import { DetailsComponent2 } from './launchpad/details/details.component';
     MatButtonToggleModule,
     MatProgressSpinnerModule,
     ClipboardModule,
-    MatTooltipModule
+    MatTooltipModule,
+    ProgressBarModule,
+    MatProgressBarModule
   ],
   providers: [MatDatepickerModule, AuthGuard],
   bootstrap: [AppComponent]

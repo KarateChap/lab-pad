@@ -1,0 +1,34 @@
+<!-- Large Screen -->
+<div class="background" fxShow="true" fxShow.lt-sm="false"></div>
+<!-- Small Screen -->
+<div class="small-background" fxShow="true" fxShow.gt-xs="false"></div>
+
+
+
+<div class="main-div" fxLayout="column" fxLayoutAlign="center center">
+
+  <div *ngIf="isLoading" class="loader">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px"  *ngIf="!isLoading">
+    <img [src]="activeTokenSale?.logoUrl" alt="" class="img">
+    <p class="heading">{{activeTokenSale?.projectName}} Presale</p>
+    <p class="percentage">50.00%</p>
+    <mat-progress-bar mode="determinate" value="20" class="progress-bar"></mat-progress-bar>
+    <p class="progress">Presale Progress: <span>0/100 CRO</span></p>
+
+    <mat-form-field class="form">
+      <mat-label>Deposit CRO</mat-label>
+      <input matInput value="" class="input">
+    </mat-form-field>
+    <p class="deposit">DEPOSIT</p>
+
+
+    <!-- <p>{{activeTokenSale.projectName}} Presale Ended</p>
+    <p class="progress">Presale Progress: <span>0/100 CRO</span></p>
+    <p>Your Claimable ${{activeTokenSale?.tokenSymbol}}: 123</p>
+    <p class="deposit">Claim</p> -->
+  </div>
+
+</div>

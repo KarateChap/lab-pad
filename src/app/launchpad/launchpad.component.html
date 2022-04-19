@@ -77,7 +77,7 @@
                 <div class="content-left">
                   <p class="cro-value">Total Raised</p>
                   <p style="margin-bottom: 10px">50,000 CRO</p>
-                  <p class="participate-text">Participate</p>
+                  <p class="participate-text" [routerLink]="[active.id]">Participate</p>
                 </div>
 
                 <div class="content-right">
@@ -145,7 +145,7 @@
                 <div class="content-left">
                   <p class="cro-value">Total Raised</p>
                   <p style="margin-bottom: 10px">50,000 CRO</p>
-                  <p class="participate-text">Participate</p>
+                  <p class="participate-text" *ngIf="upcoming.status == 'active'">Participate</p>
                 </div>
 
                 <div class="content-right">
@@ -216,7 +216,7 @@
                 <div class="content-left">
                   <p class="cro-value">Total Raised</p>
                   <p style="margin-bottom: 10px">50,000 CRO</p>
-                  <p class="participate-text">Participate</p>
+                  <p class="participate-text" *ngIf="completed.status == 'active'">Participate</p>
                 </div>
 
                 <div class="content-right">

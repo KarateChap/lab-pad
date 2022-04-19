@@ -16,6 +16,7 @@
   >
     <div fxLayoutAlign="start end" fxLayout="column" class="left-div">
       <p class="left-text">Project Name:</p>
+      <p class="left-text">Owner Email:</p>
       <p class="left-text">Website Link:</p>
       <p class="left-text">Token Name:</p>
       <p class="left-text">Token Symbol:</p>
@@ -28,6 +29,7 @@
     </div>
     <div fxLayoutAlign="start start" fxLayout="column" class="right-div">
       <p class="right-text" [cdkCopyToClipboard]="sale.projectName" (click)="onCopyText()">{{ sale.projectName }}</p>
+      <p class="right-text" [cdkCopyToClipboard]="sale.email" (click)="onCopyText()">{{ sale.email }}</p>
       <p class="right-text" [cdkCopyToClipboard]="sale.websiteLink" (click)="onCopyText()" matTooltip="Click to Copy Link">{{ sale.websiteLink }}</p>
       <p class="right-text" [cdkCopyToClipboard]="sale.tokenName" (click)="onCopyText()">{{ sale.tokenName }}</p>
       <p class="right-text" [cdkCopyToClipboard]="sale.tokenSymbol" (click)="onCopyText()">{{ sale.tokenSymbol }}</p>

@@ -78,6 +78,8 @@
   margin-left: auto;
 }
 
+
+
 .right-header-text {
   font-family: "binaria-light";
   font-size: 15px;
@@ -211,6 +213,7 @@
   padding-top: 7px;
   width: 100px;
   text-align: center;
+  cursor: pointer;
 }
 
 .details-text{

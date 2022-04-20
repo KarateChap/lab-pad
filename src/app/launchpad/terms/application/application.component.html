@@ -1,8 +1,23 @@
-<div class="main-div">
+<div class="loader" *ngIf="isLoading" fxLayoutAlign="center center">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="main-div" *ngIf="!isLoading">
   <div class="heading" fxLayoutGap="10px" fxLayout="column">
-    <p style="color: rgb(226, 66, 66);">*KEEP IN MIND* Submit your application atleast 1 week prior your desired launch Date!</p>
-    <p>Please follow the placeholders as guides for proper formatting and fill in the requirements such as the:</p>
+    <p style="color: rgb(226, 66, 66)">
+      *KEEP IN MIND* Submit your application atleast 1 week prior your desired
+      launch Date!
+    </p>
+    <p>
+      You will need to have {{ labFee }} $LAB tokens in order to submit an
+      application.
+    </p>
+    <p>
+      Please follow the placeholders as guides for proper formatting and fill in
+      the requirements such as the:
+    </p>
   </div>
+
   <form [formGroup]="applicationForm" (ngSubmit)="onSubmit()">
     <div class="contents">
       <div
@@ -16,15 +31,27 @@
         <div fxLayout="column" class="form">
           <mat-form-field class="example-full-width">
             <mat-label>Email</mat-label>
-            <input matInput placeholder="Ex. admin@gmail.com" formControlName="email" />
+            <input
+              matInput
+              placeholder="Ex. admin@gmail.com"
+              formControlName="email"
+            />
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <mat-label>Project Name</mat-label>
-            <input matInput placeholder="Ex. The Laboratory" formControlName="projectName" />
+            <input
+              matInput
+              placeholder="Ex. The Laboratory"
+              formControlName="projectName"
+            />
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <mat-label>Website Link</mat-label>
-            <input matInput placeholder="Ex. thelaboratory.farm" formControlName="websiteLink" />
+            <input
+              matInput
+              placeholder="Ex. thelaboratory.farm"
+              formControlName="websiteLink"
+            />
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <mat-label>Project Description</mat-label>
@@ -36,20 +63,31 @@
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <mat-label>Logo URL</mat-label>
-            <input matInput placeholder="Ex. https://i.pinimg.com/474x/b6/cc/cd/b6cccddfb5ecc9f98fd3c5f297540256.jpg" formControlName="logoUrl" />
+            <input
+              matInput
+              placeholder="Ex. https://i.pinimg.com/474x/b6/cc/cd/b6cccddfb5ecc9f98fd3c5f297540256.jpg"
+              formControlName="logoUrl"
+            />
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <mat-label>Token Name</mat-label>
-            <input matInput placeholder="Ex. LABORATORY" formControlName="tokenName"/>
+            <input
+              matInput
+              placeholder="Ex. LABORATORY"
+              formControlName="tokenName"
+            />
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <mat-label>Token Symbol</mat-label>
-            <input matInput placeholder="Ex. LAB" formControlName="tokenSymbol" />
+            <input
+              matInput
+              placeholder="Ex. LAB"
+              formControlName="tokenSymbol"
+            />
           </mat-form-field>
         </div>
 
         <div fxLayout="column" class="form">
-
           <mat-form-field class="example-full-width">
             <mat-label>Token Address</mat-label>
             <input
@@ -60,7 +98,11 @@
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <mat-label>Token Supply/Sale Hardcap</mat-label>
-            <input matInput placeholder="Ex. 150000000"  formControlName="tokenSupply"/>
+            <input
+              matInput
+              placeholder="Ex. 150000000"
+              formControlName="tokenSupply"
+            />
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <mat-label>Sale Price (1 CRO = __ $TOKEN)</mat-label>
@@ -68,14 +110,26 @@
           </mat-form-field>
           <mat-form-field>
             <mat-label>Sale Start Date</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="startDate" [min]="today">
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="startDate"
+              [min]="today"
+            />
             <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <mat-label>Sale Start Time in UTC</mat-label>
-            <input matInput placeholder="Ex. UTC 0100" formControlName="startTime" />
+            <input
+              matInput
+              placeholder="Ex. UTC 0100"
+              formControlName="startTime"
+            />
           </mat-form-field>
           <mat-form-field class="example-full-width">
             <mat-label>Duration in Days</mat-label>
@@ -90,6 +144,18 @@
       fxLayoutGap="20px"
       fxLayout="row"
       fxLayoutAlign="center center"
+      *ngIf="!account"
+    >
+      <button (click)="onConnectWallet()" mat-raised-button color="success" style="width: 180px !important;">
+        Connect Wallet
+      </button>
+    </div>
+    <div
+      class="actions"
+      fxLayoutGap="20px"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      *ngIf="account"
     >
       <button
         mat-raised-button
@@ -99,14 +165,15 @@
       >
         Cancel
       </button>
+
       <button
         mat-raised-button
         color="success"
-        [mat-dialog-close]="true"
-        type="submit"
+        type="button"
+        (click)="onApproveTransaction()"
         [disabled]="applicationForm.invalid"
       >
-        Submit
+        {{ isApproved == true ? "Submit" : "Approve" }}
       </button>
     </div>
   </form>

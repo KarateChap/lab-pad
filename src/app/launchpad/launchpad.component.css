@@ -78,6 +78,9 @@
   margin-left: auto;
 }
 
+.loader ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: var(--primary);
+}
 
 
 .right-header-text {

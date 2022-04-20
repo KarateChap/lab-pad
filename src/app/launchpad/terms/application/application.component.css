@@ -5,12 +5,15 @@
 
 .contents{
   margin: 3vh 5vh;
-  background-color: #d1ebdcc4;
+  background-color: #ffffffd8;
   padding: 3vh;
   border-radius: 10px;
-
+  border: 2px solid rgba(14, 143, 70, 0.466);
 }
 
+.loader ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: var(--primary);
+}
 
 button{
   width: 150px !important;
@@ -29,11 +32,15 @@ p{
 
 }
 
+input {
+  color: black;
+}
+
 
 @media screen and (max-width: 599px) {
   .contents{
     margin: 0;
-    background-color: #d1ebdcc4;
+    background-color: #ffffffc4;
     padding: 10px 0;
   }
   .form{

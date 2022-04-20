@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   menuIcon = 'menu';
   subscriptions: Subscription [] = [];
   account: string = '';
+  web3Api: any = null;
 
   constructor(private walletService: WalletService) { }
 
@@ -20,6 +21,13 @@ export class NavbarComponent implements OnInit {
     this.subscriptions.push(
       this.walletService.accountsChange.subscribe((account) => {
         this.account = account;
+      })
+    );
+
+    this.subscriptions.push(
+      this.walletService.Web3Change.subscribe((web3Api) => {
+        this.web3Api = web3Api;
+        console.log(this.web3Api);
       })
     );
   }

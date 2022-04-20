@@ -26,10 +26,16 @@
     </div>
   </div>
 
+
+  <div class="loader" *ngIf="isLoading" fxLayoutAlign="center center">
+    <mat-spinner></mat-spinner>
+  </div>
+
   <div
     class="main-ido-div"
     fxLayoutAlign.lt-sm="start center"
     fxLayout="column"
+    *ngIf="!isLoading"
   >
     <!-- active ido -->
     <div class="ido-div">
@@ -52,7 +58,7 @@
                   <p class="ido-status">IDO Active</p>
                   <p class="top-sub-text">
                     {{ active.startDate.toDate() | date: "shortDate" }}
-                    <span style="color: gray">to</span
+                    <span style="color: gray">to </span
                     >{{
                       active.startDate
                         .toDate()
@@ -119,7 +125,7 @@
                   <p class="ido-status upcoming-ido">IDO Upcoming</p>
                   <p class="top-sub-text">
                     {{ upcoming.startDate.toDate() | date: "shortDate" }}
-                    <span style="color: gray">to</span>
+                    <span style="color: gray">to </span>
                     {{
                       upcoming.startDate
                         .toDate()
@@ -140,23 +146,18 @@
               <div
                 class="item-content"
                 fxLayout="row"
-                fxLayoutAlign="space-around center"
+                fxLayoutAlign="center center"
               >
-                <div class="content-left">
-                  <p class="cro-value">Total Raised</p>
-                  <p style="margin-bottom: 10px">50,000 CRO</p>
-                  <p class="participate-text" *ngIf="upcoming.status == 'active'">Participate</p>
-                </div>
 
-                <div class="content-right">
-                  <p class="cro-value">Hardcap</p>
-                  <p style="margin-bottom: 10px">
+                <div class="content-right" style="text-align: center !important;">
+                  <p class="cro-value" style="text-align: center !important;">Hardcap</p>
+                  <p style="margin-bottom: 10px; text-align: center !important;">
                     {{
                       (+upcoming.tokenSupply / +upcoming.salePrice).toFixed(2)
                     }}
                     CRO
                   </p>
-                  <p class="details-text" (click)="onShowUpcomingDetails(i)">Details</p>
+                  <p class="details-text" (click)="onShowUpcomingDetails(i)" style="text-align: center !important;">Details</p>
                 </div>
               </div>
             </div>
@@ -188,7 +189,7 @@
                   <p class="ido-status upcoming-ido">IDO Completed</p>
                   <p class="top-sub-text">
                     {{ completed.startDate.toDate() | date: "shortDate" }}
-                    <span style="color: gray">to</span>
+                    <span style="color: gray">to </span>
                     {{
                       completed.startDate
                         .toDate()

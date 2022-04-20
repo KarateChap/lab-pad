@@ -19,6 +19,7 @@ export class LaunchpadComponent implements OnInit, OnDestroy{
   activeSales: Sale[] = [];
   upcomingSales: Sale[] = [];
   completedSales: Sale[] = [];
+  isLoading = true;
 
   subscription: Subscription[] = [];
   constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private backendService: BackendService) { }
@@ -38,6 +39,8 @@ export class LaunchpadComponent implements OnInit, OnDestroy{
       this.completedSales = this.allSales.filter(function (el){
         return el.status == 'completed'
       })
+
+      this.isLoading = false;
     }))
   }
 

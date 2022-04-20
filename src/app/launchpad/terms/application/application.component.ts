@@ -1,18 +1,50 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Subscription, take} from 'rxjs';
 import { BackendService } from 'src/app/services/backend.service';
+import { WalletService } from 'src/app/services/wallet.service';
 
 @Component({
   selector: 'app-application',
   templateUrl: './application.component.html',
   styleUrls: ['./application.component.css'],
 })
-export class ApplicationComponent implements OnInit {
+export class ApplicationComponent implements OnInit, OnDestroy {
   applicationForm: FormGroup;
   today: Date = new Date();
-  constructor(private backendService: BackendService) {}
+  isApproved = false;
+  subscription: Subscription[] = [];
+  labFee: any;
+  isLoading = true;
+  account: string = '';
+
+  constructor(
+    private backendService: BackendService,
+    private walletService: WalletService,
+    private dialogRef: MatDialogRef<ApplicationComponent>
+  ) {}
 
   ngOnInit(): void {
+    this.walletService.connectWallet();
+    this.subscription.push(
+      this.walletService.accountsChange.subscribe((account) => {
+        this.account = account;
+      })
+    );
+    this.walletService.changeContractToIERC();
+    this.subscription.push(
+      this.walletService.approvedChange.subscribe((isApproved) => {
+        this.isApproved = isApproved;
+      })
+    );
+    this.subscription.push(
+      this.walletService.labFeeChanged.pipe(take(1)).subscribe((labFee) => {
+        this.labFee = labFee;
+        this.isLoading = false;
+      })
+    );
+
     this.today = new Date(this.today.setDate(this.today.getDate() + 7));
     this.applicationForm = new FormGroup({
       email: new FormControl('', {
@@ -41,6 +73,23 @@ export class ApplicationComponent implements OnInit {
         ],
       }),
     });
+
+    this.subscription.push(this.walletService.onSubmitChange.subscribe(() => {
+      this.onSubmit();
+      console.log("SHETTT");
+    }))
+  }
+
+  onConnectWallet(){
+    this.walletService.connectWallet();
+  }
+
+  onApproveTransaction() {
+    if (this.isApproved) {
+      this.walletService.onSendLabTokens();
+    } else {
+      this.walletService.onApproveTransaction();
+    }
   }
 
   onSubmit() {
@@ -59,6 +108,15 @@ export class ApplicationComponent implements OnInit {
       startTime: this.applicationForm.value.startTime,
       duration: this.applicationForm.value.duration,
       status: 'pending',
+    });
+
+    this.applicationForm.reset();
+    this.dialogRef.close()
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach(element => {
+      element.unsubscribe();
     });
   }
 }

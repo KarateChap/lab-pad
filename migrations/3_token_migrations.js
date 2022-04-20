@@ -1,5 +1,6 @@
 const TokenContract = artifacts.require("Token");
 
 module.exports = function (deployer){
-    deployer.deploy(TokenContract)
+    const totalSupply = '2000000000000000000000';
+    deployer.deploy(TokenContract, totalSupply)
 }

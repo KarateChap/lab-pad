@@ -3,32 +3,114 @@
 <!-- Small Screen -->
 <div class="small-background" fxShow="true" fxShow.gt-xs="false"></div>
 
-
-
 <div class="main-div" fxLayout="column" fxLayoutAlign="center center">
-
-  <div *ngIf="isLoading" class="loader">
-    <mat-spinner></mat-spinner>
+  <div class="loader" *ngIf="isLoading" fxLayoutAlign="center center">
+    <div fxLayout="column">
+      <img src="../../../../assets/lab-web.png" alt="" class="lab-loading" />
+      <p style="font-family: 'binaria'; color: white; padding-left: 50px">
+        Loading...
+      </p>
+    </div>
   </div>
 
-  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px"  *ngIf="!isLoading">
-    <img [src]="activeTokenSale?.logoUrl" alt="" class="img">
-    <p class="heading">{{activeTokenSale?.projectName}} Presale</p>
-    <p class="percentage">50.00%</p>
-    <mat-progress-bar mode="determinate" value="20" class="progress-bar"></mat-progress-bar>
-    <p class="progress">Presale Progress: <span>0/100 CRO</span></p>
+  <div
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="15px"
+    *ngIf="!isLoading"
+  >
+    <img [src]="activeTokenSale?.logoUrl" alt="" class="img" />
+    <p class="heading">{{ activeTokenSale?.projectName }} Presale</p>
+    <p class="percentage" style="color: var(--primary)">
+      1 CR0 =
+      {{
+        +presale.tokenHardcap / +presale.croHardcap +
+          " " +
+          activeTokenSale.tokenSymbol
+      }}
+    </p>
+    <p
+      class="percentage"
+      style="color: var(--primary)"
+      *ngIf="currentTimeStamp < presale.endTime"
+    >
+      Sale ends on: {{ endTime + " " + activeTokenSale.startTime }}
+    </p>
+    <p
+      class="percentage"
+      style="color: var(--primary)"
+      *ngIf="currentTimeStamp > presale.endTime"
+    >
+      PRESALE ENDED
+    </p>
+    <p class="percentage" style="color: var(--primary)">
+      Your Participation:
+      {{
+        (
+          +presale.presaleParticipation /
+          (+presale.tokenHardcap / +presale.croHardcap)
+        ).toFixed(2) +
+          " CRO" +
+          " | " +
+          (+presale.presaleParticipation + 0).toFixed(2) +
+          " " +
+          activeTokenSale.tokenSymbol
+      }}
+    </p>
 
-    <mat-form-field class="form">
+    <div
+      style="padding: 20px 0"
+      fxLayoutAlign="center center"
+      fxLayout="column"
+      fxLayoutGap="15px"
+    >
+      <p class="percentage">
+        {{ (+presale.croRaised / +presale.croHardcap) * 100 }}%
+      </p>
+      <mat-progress-bar
+        mode="determinate"
+        [value]="(+presale.croRaised / +presale.croHardcap) * 100"
+        class="progress-bar"
+      ></mat-progress-bar>
+    </div>
+
+    <div
+      style="padding: 20px 0"
+      fxLayoutAlign="center center"
+      fxLayout="column"
+      fxLayoutGap="15px"
+      class="presale-info"
+    >
+      <p
+        class="progress"
+        style="margin-top: 15px"
+        *ngIf="currentTimeStamp < presale.endTime"
+      >
+        Presale Progress:
+        <span>{{ presale.croRaised }}/{{ presale.croHardcap }} CRO</span>
+      </p>
+      <p *ngIf="presale.hasMaxMinAlloc" class="progress">
+        Minimum CRO Alloc per Participants: {{ presale.minAlloc }}
+      </p>
+      <p *ngIf="presale.hasMaxMinAlloc" class="progress">
+        Maximum CRO Alloc per Participants: {{ presale.maxAlloc }}
+      </p>
+    </div>
+    <mat-form-field class="form" *ngIf="currentTimeStamp < presale.endTime">
       <mat-label>Deposit CRO</mat-label>
-      <input matInput value="" class="input">
+      <input matInput [(ngModel)]="croValue" class="input" />
     </mat-form-field>
-    <p class="deposit">DEPOSIT</p>
+    <p class="deposit" (click)="onClaimOrDeposit()" *ngIf="!isLoading2">
+      {{ currentTimeStamp < presale.endTime ? "DEPOSIT" : "CLAIM" }}
+    </p>
 
-
-    <!-- <p>{{activeTokenSale.projectName}} Presale Ended</p>
-    <p class="progress">Presale Progress: <span>0/100 CRO</span></p>
-    <p>Your Claimable ${{activeTokenSale?.tokenSymbol}}: 123</p>
-    <p class="deposit">Claim</p> -->
+    <div class="loader" *ngIf="isLoading2" fxLayoutAlign="center center" style="padding-top: 30px;">
+      <div fxLayout="column">
+        <img src="../../../../assets/lab-web.png" alt="" class="lab-loading" />
+        <p style="font-family: 'binaria'; color: white; padding-left: 50px;">
+          Loading...
+        </p>
+      </div>
+    </div>
   </div>
-
 </div>

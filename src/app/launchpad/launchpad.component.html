@@ -81,8 +81,6 @@
                 fxLayoutAlign="space-around center"
               >
                 <div class="content-left">
-                  <p class="cro-value">Total Raised</p>
-                  <p style="margin-bottom: 10px">50,000 CRO</p>
                   <p class="participate-text" [routerLink]="[active.id]">Participate</p>
                 </div>
 
@@ -157,7 +155,7 @@
                     }}
                     CRO
                   </p>
-                  <p class="details-text" (click)="onShowUpcomingDetails(i)" style="text-align: center !important;">Details</p>
+                  <p class="details-text" (click)="onShowUpcomingDetails(i)" style="text-align: center !important; padding-left: 0 !important;">Details</p>
                 </div>
               </div>
             </div>
@@ -212,23 +210,21 @@
               <div
                 class="item-content"
                 fxLayout="row"
-                fxLayoutAlign="space-around center"
+                fxLayoutAlign="center center"
               >
                 <div class="content-left">
-                  <p class="cro-value">Total Raised</p>
-                  <p style="margin-bottom: 10px">50,000 CRO</p>
                   <p class="participate-text" *ngIf="completed.status == 'active'">Participate</p>
                 </div>
 
-                <div class="content-right">
-                  <p class="cro-value">Hardcap</p>
-                  <p style="margin-bottom: 10px">
+                <div class="content-right" style="text-align: center !important;">
+                  <p class="cro-value" style="text-align: center !important;">Hardcap</p>
+                  <p style="margin-bottom: 10px; text-align: center !important;">
                     {{
                       (+completed.tokenSupply / +completed.salePrice).toFixed(2)
                     }}
                     CRO
                   </p>
-                  <p class="details-text" (click)="onShowCompletedDetails(i)">Details</p>
+                  <p class="details-text" (click)="onShowCompletedDetails(i)" style="text-align: center !important; padding-left: 0 !important;">Details</p>
                 </div>
               </div>
             </div>

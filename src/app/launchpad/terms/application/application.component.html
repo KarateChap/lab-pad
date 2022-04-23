@@ -1,5 +1,8 @@
 <div class="loader" *ngIf="isLoading" fxLayoutAlign="center center">
-  <mat-spinner></mat-spinner>
+  <div fxLayout="column" >
+    <img src="../../../../assets/lab-web.png" alt="" class="lab-loading">
+    <p style="font-family: 'binaria'; color: white; padding-left: 20px;">Loading...</p>
+  </div>
 </div>
 
 <div class="main-div" *ngIf="!isLoading">
@@ -85,6 +88,15 @@
               formControlName="tokenSymbol"
             />
           </mat-form-field>
+          <div class="example-full-width">
+            <mat-checkbox
+            class="checkbox "
+            formControlName="hasMaxMin"
+            (change)="onMaxMinChange($event)"
+            >Has Max/MIN Participation?</mat-checkbox
+          >
+          </div>
+
         </div>
 
         <div fxLayout="column" class="form">
@@ -135,6 +147,20 @@
             <mat-label>Duration in Days</mat-label>
             <input matInput placeholder="Ex. 1" formControlName="duration" />
           </mat-form-field>
+          <mat-form-field
+            class="example-full-width"
+            *ngIf="applicationForm.value.hasMaxMin"
+          >
+            <mat-label>Max Allocation (in CRO)</mat-label>
+            <input matInput placeholder="Ex. 1" formControlName="maxAlloc" />
+          </mat-form-field>
+          <mat-form-field
+            class="example-full-width"
+            *ngIf="applicationForm.value.hasMaxMin"
+          >
+            <mat-label>Min Allocation (in CRO)</mat-label>
+            <input matInput placeholder="Ex. 1" formControlName="minAlloc" />
+          </mat-form-field>
         </div>
       </div>
     </div>
@@ -146,7 +172,13 @@
       fxLayoutAlign="center center"
       *ngIf="!account"
     >
-      <button (click)="onConnectWallet()" mat-raised-button color="success" style="width: 180px !important;">
+      <button
+        (click)="onConnectWallet()"
+        mat-raised-button
+        color="success"
+        style="width: 180px !important"
+        type="button"
+      >
         Connect Wallet
       </button>
     </div>
@@ -171,8 +203,9 @@
         color="success"
         type="button"
         (click)="onApproveTransaction()"
-        [disabled]="applicationForm.invalid"
+
       >
+      <!-- [disabled]="applicationForm.invalid" -->
         {{ isApproved == true ? "Submit" : "Approve" }}
       </button>
     </div>

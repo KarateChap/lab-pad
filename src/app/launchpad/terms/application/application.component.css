@@ -36,6 +36,37 @@ input {
   color: black;
 }
 
+.checkbox{
+  color: rgb(107, 107, 107);
+}
+
+.lab-loading{
+  width: 10vh;
+  height: auto;
+  animation: lab 3s infinite;
+  margin: -40px;
+  padding: -40px;
+
+}
+
+@keyframes lab {
+  0%{
+    transform: rotate(10deg);
+  }
+  25%{
+    transform: rotate(-10deg);
+  }
+  50%{
+    transform: rotate(10deg);
+  }
+  75%{
+    transform: rotate(-10deg);
+  }
+  100%{
+    transform: rotate(10deg);
+  }
+}
+
 
 @media screen and (max-width: 599px) {
   .contents{

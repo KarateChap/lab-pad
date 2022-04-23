@@ -16,7 +16,7 @@ export class ApplicationComponent implements OnInit, OnDestroy {
   isApproved = false;
   subscription: Subscription[] = [];
   labFee: any;
-  isLoading = true;
+  isLoading = false;
   account: string = '';
 
   constructor(
@@ -41,9 +41,14 @@ export class ApplicationComponent implements OnInit, OnDestroy {
     this.subscription.push(
       this.walletService.labFeeChanged.pipe(take(1)).subscribe((labFee) => {
         this.labFee = labFee;
-        this.isLoading = false;
       })
     );
+
+    this.subscription.push(
+      this.walletService.loadingChange.subscribe(isLoading => {
+        this.isLoading = isLoading;
+      })
+    )
 
     this.today = new Date(this.today.setDate(this.today.getDate() + 7));
     this.applicationForm = new FormGroup({
@@ -72,12 +77,23 @@ export class ApplicationComponent implements OnInit, OnDestroy {
           Validators.maxLength(1),
         ],
       }),
+      hasMaxMin: new FormControl(false)
     });
 
     this.subscription.push(this.walletService.onSubmitChange.subscribe(() => {
       this.onSubmit();
       console.log("SHETTT");
     }))
+  }
+
+  onMaxMinChange(event: any){
+    if(this.applicationForm.value.hasMaxMin == true){
+      this.applicationForm.addControl('maxAlloc', new FormControl('', {validators: [Validators.required, Validators.pattern(/^[0-9]*$/)]}));
+      this.applicationForm.addControl('minAlloc', new FormControl('', {validators: [Validators.required, Validators.pattern(/^[0-9]*$/)]}));
+    }else {
+      this.applicationForm.removeControl('maxAlloc');
+      this.applicationForm.removeControl('minAlloc');
+    }
   }
 
   onConnectWallet(){
@@ -93,22 +109,48 @@ export class ApplicationComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.backendService.addTokenSale({
-      email: this.applicationForm.value.email,
-      projectName: this.applicationForm.value.projectName,
-      websiteLink: this.applicationForm.value.websiteLink,
-      projectDescription: this.applicationForm.value.projectDescription,
-      logoUrl: this.applicationForm.value.logoUrl,
-      tokenName: this.applicationForm.value.tokenName,
-      tokenSymbol: this.applicationForm.value.tokenSymbol,
-      tokenAddress: this.applicationForm.value.tokenAddress,
-      tokenSupply: this.applicationForm.value.tokenSupply,
-      salePrice: this.applicationForm.value.salePrice,
-      startDate: this.applicationForm.value.startDate,
-      startTime: this.applicationForm.value.startTime,
-      duration: this.applicationForm.value.duration,
-      status: 'pending',
-    });
+    if(this.applicationForm.value.hasMaxMin == false){
+      this.backendService.addTokenSale({
+        email: this.applicationForm.value.email.toLowerCase(),
+        projectName: this.applicationForm.value.projectName,
+        websiteLink: this.applicationForm.value.websiteLink,
+        projectDescription: this.applicationForm.value.projectDescription,
+        logoUrl: this.applicationForm.value.logoUrl,
+        tokenName: this.applicationForm.value.tokenName,
+        tokenSymbol: this.applicationForm.value.tokenSymbol,
+        tokenAddress: this.applicationForm.value.tokenAddress,
+        tokenSupply: this.applicationForm.value.tokenSupply,
+        salePrice: this.applicationForm.value.salePrice,
+        startDate: this.applicationForm.value.startDate,
+        startTime: this.applicationForm.value.startTime,
+        duration: this.applicationForm.value.duration,
+        status: 'pending',
+        hasMaxMin: this.applicationForm.value.hasMaxMin,
+        crowdsaleContract: ''
+      });
+    }
+    else {
+      this.backendService.addTokenSale({
+        email: this.applicationForm.value.email.toLowerCase(),
+        projectName: this.applicationForm.value.projectName,
+        websiteLink: this.applicationForm.value.websiteLink,
+        projectDescription: this.applicationForm.value.projectDescription,
+        logoUrl: this.applicationForm.value.logoUrl,
+        tokenName: this.applicationForm.value.tokenName,
+        tokenSymbol: this.applicationForm.value.tokenSymbol,
+        tokenAddress: this.applicationForm.value.tokenAddress,
+        tokenSupply: this.applicationForm.value.tokenSupply,
+        salePrice: this.applicationForm.value.salePrice,
+        startDate: this.applicationForm.value.startDate,
+        startTime: this.applicationForm.value.startTime,
+        duration: this.applicationForm.value.duration,
+        status: 'pending',
+        hasMaxMin: this.applicationForm.value.hasMaxMin,
+        maxAlloc: this.applicationForm.value.maxAlloc,
+        minAlloc: this.applicationForm.value.minAlloc,
+        crowdsaleContract: ''
+      });
+    }
 
     this.applicationForm.reset();
     this.dialogRef.close()

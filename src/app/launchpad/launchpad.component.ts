@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { Sale } from '../models/sale.model';
 import { BackendService } from '../services/backend.service';
+import { WalletService } from '../services/wallet.service';
 import { DetailsComponent2 } from './details/details.component';
 import { TermsComponent } from './terms/terms.component';
 
@@ -22,9 +23,10 @@ export class LaunchpadComponent implements OnInit, OnDestroy{
   isLoading = true;
 
   subscription: Subscription[] = [];
-  constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private backendService: BackendService) { }
+  constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private backendService: BackendService, private walletService: WalletService) { }
 
   ngOnInit(): void {
+
     this.backendService.fetchAllSale();
     this.subscription.push(this.backendService.allSaleChanged.subscribe(sales => {
       this.allSales = sales;

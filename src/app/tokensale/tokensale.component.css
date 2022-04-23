@@ -58,7 +58,8 @@ p{
 }
 
 .percentage{
-  margin-top: 20px;
+  line-height: 0.5em;
+  font-size: 15px;
 }
 
 .heading{
@@ -70,8 +71,15 @@ p{
 .progress{
   font-family: 'binaria-light';
   letter-spacing: 0.05em;
+  line-height: 0.5em;
+  font-size: 15px;
 }
 
+.presale-info{
+  border: 1px solid var(--primary);
+  border-radius: 15px;
+  padding: 20px 20px !important;
+}
 
 ::ng-deep .mat-form-field,.mat-input-element {
   color: var(--primary);
@@ -105,6 +113,33 @@ mat-label{
 
 .loader ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
   stroke: var(--primary);
+}
+
+.lab-loading{
+  width: 10vh;
+  height: auto;
+  animation: lab 3s infinite;
+  margin: -40px;
+  padding: -40px;
+
+}
+
+@keyframes lab {
+  0%{
+    transform: rotate(10deg);
+  }
+  25%{
+    transform: rotate(-10deg);
+  }
+  50%{
+    transform: rotate(10deg);
+  }
+  75%{
+    transform: rotate(-10deg);
+  }
+  100%{
+    transform: rotate(10deg);
+  }
 }
 
 .deposit{

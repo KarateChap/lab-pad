@@ -26,6 +26,8 @@
       <p class="left-text">Target Launch Date:</p>
       <p class="left-text">Target Launch Time:</p>
       <p class="left-text">Target End Date:</p>
+      <p class="left-text">Max Alloc (in CRO)</p>
+      <p class="left-text">Min Alloc (in CRO)</p>
     </div>
     <div fxLayoutAlign="start start" fxLayout="column" class="right-div">
       <p class="right-text" [cdkCopyToClipboard]="sale.projectName" (click)="onCopyText()">{{ sale.projectName }}</p>
@@ -43,6 +45,8 @@
           sale.startDate.toDate().setDate(sale.startDate.toDate().getDate() + +sale.duration)| date: "shortDate"
         }}
       </p>
+      <p class="right-text" *ngIf="sale.hasMaxMin" [cdkCopyToClipboard]="sale.maxAlloc? sale.maxAlloc : 'N/A'" (click)="onCopyText()">{{ sale.maxAlloc }}</p>
+      <p class="right-text" *ngIf="sale.hasMaxMin" [cdkCopyToClipboard]="sale.minAlloc? sale.minAlloc : 'N/A'" (click)="onCopyText()">{{ sale.minAlloc }}</p>
     </div>
   </div>
   </div>

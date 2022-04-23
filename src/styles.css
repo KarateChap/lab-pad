@@ -92,6 +92,12 @@ mat-dialog-container {
   border: none;
 }
 
+.red-snackbar button {
+  /* background-color: rgb(65, 252, 134); */
+  color: rgb(219, 70, 70);
+  border: none;
+}
+
 ::ng-deep mat-button-toggle-group{
   outline: none;
 }

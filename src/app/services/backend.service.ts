@@ -21,7 +21,7 @@ export class BackendService {
   addTokenSale(sale: NewSale) {
     this.af.collection('sale').add(sale);
     this.snackBar.open('Token Sale Information Submitted!', 'close', {
-      duration: 2000,
+      duration: 4000,
       panelClass: ['green-snackbar'],
     });
   }

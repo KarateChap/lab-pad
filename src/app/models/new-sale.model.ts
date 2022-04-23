@@ -13,4 +13,8 @@ export interface NewSale {
   startTime: string;
   duration: string;
   status: string;
+  hasMaxMin: boolean;
+  maxAlloc?: string;
+  minAlloc?: string;
+  crowdsaleContract: string;
 }

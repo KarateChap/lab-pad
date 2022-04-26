@@ -49,7 +49,7 @@
 
 p{
   color: white;
-  font-family: 'binaria';
+  font-family: 'binaria-medium';
 }
 
 
@@ -69,7 +69,7 @@ p{
 }
 
 .progress{
-  font-family: 'binaria-light';
+  font-family: 'binaria-medium';
   letter-spacing: 0.05em;
   line-height: 0.5em;
   font-size: 15px;
@@ -91,7 +91,7 @@ p{
 
 mat-label{
   color: var(--primary);
-  font-family: 'binaria';
+  font-family: 'binaria-medium';
 }
 
 ::ng-deep .mat-form-field-underline {

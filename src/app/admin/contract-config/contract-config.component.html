@@ -1,0 +1,22 @@
+<div class="main-div" fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="start start">
+  <p class="main-text">Set Crowdsale Contract:</p>
+  <mat-form-field class="form">
+    <mat-label>Set Contract Address</mat-label>
+    <input
+      matInput
+      placeholder="0xefEc8d8BE88f70d828Ef6487e492BEE4f584e58b"
+      [(ngModel)]="contractAddress"
+    />
+  </mat-form-field>
+  <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%">
+    <button
+    mat-raised-button
+    color="success"
+    type="button"
+    (click)="onSetActive()"
+  >
+    Set Active
+  </button>
+  </div>
+
+</div>

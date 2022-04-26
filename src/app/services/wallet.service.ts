@@ -28,7 +28,7 @@ export class WalletService {
   ierc20Contract: any;
   ticketContract: any;
   labFee: any;
-  labFeeChanged = new Subject<boolean>();
+  labFeeChanged = new Subject<number>();
   isApproved = false;
   approvedChange = new Subject<boolean>();
   onSubmitChange = new Subject<void>();
@@ -143,9 +143,9 @@ export class WalletService {
       this.checkIfApproved();
       this.isLoading = false;
       this.loadingChange.next(this.isLoading);
-    } catch {
+    } catch (error: any){
       this.openFailedSnackBar(
-        'Transaction Failed, You need to approve the transaction to submit your application',
+        error.message,
         'close'
       );
       this.isLoading = false;
@@ -163,11 +163,9 @@ export class WalletService {
       this.onSubmitChange.next();
       this.isLoading = false;
       this.loadingChange.next(this.isLoading);
-    } catch {
+    } catch(error: any){
       this.openFailedSnackBar(
-        'Transaction Failed, You will need to have atleast ' +
-          this.web3Api.web3.utils.fromWei(this.labFee, 'ether') +
-          ' LAB tokens to submit your application',
+        error.message,
         'close'
       );
       this.isLoading = false;
@@ -283,9 +281,9 @@ export class WalletService {
         'Transaction Completed, CRO deposited successfully','close'
       );
     }
-    catch{
+    catch(error: any){
       this.openFailedSnackBar(
-        'Transaction Failed, You will need to have enough balance in your wallet','lose'
+        error.message,'close'
       );
       this.isLoading = false;
       this.loadingChange.next(this.isLoading);
@@ -304,9 +302,9 @@ export class WalletService {
         'Transaction Completed, Tokens claimed successfully','close'
       );
     }
-    catch{
+    catch(error: any){
       this.openFailedSnackBar(
-        'Transaction Failed, please make sure you have a presale participation','close'
+        error.message,'close'
       );
       this.isLoading = false;
       this.loadingChange.next(this.isLoading);

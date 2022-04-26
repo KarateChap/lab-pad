@@ -44,8 +44,8 @@ contract CrowdSale is Ownable, ReentrancyGuard {
         soldTokens = 0;
         croRaised = 0;
         hasMaxMinAlloc = true;
-        maxAlloc = 1000000000000000000;
-        minAlloc = 500000000000000000;
+        maxAlloc = 1000000000000000000; // 1 ether
+        minAlloc = 500000000000000000; // 0.5 ether
         isPresaleStop = false;
         tokenInstance = _tokenInstance;
         startTime = 1650661200;
@@ -112,14 +112,14 @@ contract CrowdSale is Ownable, ReentrancyGuard {
 
     // claim function
 
-    function claimPresale() external onlyOwner nonReentrant {
+    function claimPresale() external nonReentrant {
         checkPresaleDuration();
         require(isPresaleStop == true, "CrowdSale: cannot claim tokens yet");
         require(
             presaleParticipation[msg.sender] > 0,
             "Crowdsale: you have no tokens to claim"
         );
-        require(tokenInstance.balanceOf(address(this)) >= tokenHardcap, "CrowdSale: Insufficient Token Balance to distribute");
+        require(tokenInstance.balanceOf(address(this)) >= 0, "CrowdSale: Insufficient Token Balance to distribute");
         uint256 tempBalance = presaleParticipation[msg.sender];
         presaleParticipation[msg.sender] = 0;
         tokenInstance.transfer(msg.sender, tempBalance);

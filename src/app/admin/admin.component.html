@@ -71,7 +71,8 @@
           fxLayoutAlign="space-around center"
         >
           <div class="content-left">
-            <p class="details-text accept-text" [ngStyle]="{'background-color' : sale.status == 'completed' ? 'gray' : 'var(--primary)'}" (click)="onSetStatus(sale.id, i)">
+            <p class="details-text accept-text" *ngIf="sale.status == 'accepted'" (click)="onSetContractAddress(i)">Set Active</p>
+            <p class="details-text accept-text" [ngStyle]="{'background-color' : sale.status == 'completed' ? 'gray' : 'var(--primary)'}" (click)="onSetStatus(sale.id, i)" *ngIf="sale.status != 'accepted'">
               {{
                 sale.status == "pending"
                   ? "Accept"

@@ -44,8 +44,8 @@ export class BackendService {
     this.openSnackBar('Sale Accepted Successfully', 'close');
   }
 
-  onSetActiveSale(id: string) {
-    this.af.doc('sale/' + id).update({ status: 'active' });
+  onSetActiveSale(id: string, contractAddress: string) {
+    this.af.doc('sale/' + id).update({ status: 'active', crowdsaleContract: contractAddress});
     this.openSnackBar('Sale Set to Active Successfully', 'close');
   }
 

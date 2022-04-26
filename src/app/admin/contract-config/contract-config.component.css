@@ -1,0 +1,44 @@
+
+.main-div{
+  width: 40vh;
+}
+.main-text{
+  color: white;
+  font-family: 'binaria';
+}
+
+.form{
+  width: 40vh;
+}
+
+::ng-deep .mat-form-field,.mat-input-element {
+  color: white;
+}
+
+::ng-deep .mat-form-field,.mat-form-field-ripple {
+  color: var(--primary);
+}
+
+mat-label{
+  color: var(--primary);
+  font-family: 'binaria';
+}
+
+::ng-deep .mat-form-field-underline {
+  background-color: var(--primary) !important;
+
+}
+
+.mat-input-element {
+  caret-color: #34d178 !important;
+}
+
+::ng-deep .mat-form-field-ripple {
+  background-color: var(--primary) !important;
+}
+
+@media screen and (max-width: 599px) {
+  .form{
+    width: 70vw;
+  }
+}

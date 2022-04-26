@@ -15,7 +15,7 @@ export class ApplicationComponent implements OnInit, OnDestroy {
   today: Date = new Date();
   isApproved = false;
   subscription: Subscription[] = [];
-  labFee: any;
+  labFee: number;
   isLoading = false;
   account: string = '';
 
@@ -40,7 +40,7 @@ export class ApplicationComponent implements OnInit, OnDestroy {
     );
     this.subscription.push(
       this.walletService.labFeeChanged.pipe(take(1)).subscribe((labFee) => {
-        this.labFee = labFee;
+        this.labFee = +labFee;
       })
     );
 

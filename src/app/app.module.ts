@@ -36,6 +36,7 @@ import { ErrorComponent } from './error/error.component';
 import { TokensaleComponent } from './tokensale/tokensale.component';
 import {ProgressBarModule} from "angular-progress-bar"
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { ContractConfigComponent } from './admin/contract-config/contract-config.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     DetailsComponent,
     DetailsComponent2,
     ErrorComponent,
-    TokensaleComponent
+    TokensaleComponent,
+    ContractConfigComponent
   ],
   imports: [
     BrowserModule,

@@ -7,7 +7,7 @@
   <div class="loader" *ngIf="isLoading" fxLayoutAlign="center center">
     <div fxLayout="column">
       <img src="../../../../assets/lab-web.png" alt="" class="lab-loading" />
-      <p style="font-family: 'binaria'; color: white; padding-left: 50px">
+      <p style="font-family: 'Roboto', sans-serif; color: white; padding-left: 50px">
         Loading...
       </p>
     </div>
@@ -21,6 +21,13 @@
   >
     <img [src]="activeTokenSale?.logoUrl" alt="" class="img" />
     <p class="heading">{{ activeTokenSale?.projectName }} Presale</p>
+    <p
+    class="percentage"
+    style="color: var(--primary)"
+    *ngIf="currentTimeStamp > presale.endTime"
+  >
+    PRESALE ENDED
+  </p>
     <p class="percentage" style="color: var(--primary)">
       1 CR0 =
       {{
@@ -35,13 +42,6 @@
       *ngIf="currentTimeStamp < presale.endTime"
     >
       Sale ends on: {{ endTime + " " + activeTokenSale.startTime }}
-    </p>
-    <p
-      class="percentage"
-      style="color: var(--primary)"
-      *ngIf="currentTimeStamp > presale.endTime"
-    >
-      PRESALE ENDED
     </p>
     <p class="percentage" style="color: var(--primary)">
       Your Participation:
@@ -65,7 +65,7 @@
       fxLayoutGap="15px"
     >
       <p class="percentage">
-        {{ (+presale.croRaised / +presale.croHardcap) * 100 }}%
+        {{ ((+presale.croRaised / +presale.croHardcap) * 100).toFixed(2)}}%
       </p>
       <mat-progress-bar
         mode="determinate"
@@ -84,7 +84,7 @@
       <p
         class="progress"
         style="margin-top: 15px"
-        *ngIf="currentTimeStamp < presale.endTime"
+
       >
         Presale Progress:
         <span>{{ presale.croRaised }}/{{ presale.croHardcap }} CRO</span>
@@ -96,10 +96,12 @@
         Maximum CRO Alloc per Participants: {{ presale.maxAlloc }}
       </p>
     </div>
+
     <mat-form-field class="form" *ngIf="currentTimeStamp < presale.endTime">
       <mat-label>Deposit CRO</mat-label>
       <input matInput [(ngModel)]="croValue" class="input" />
     </mat-form-field>
+
     <p class="deposit" (click)="onClaimOrDeposit()" *ngIf="!isLoading2">
       {{ currentTimeStamp < presale.endTime ? "DEPOSIT" : "CLAIM" }}
     </p>
@@ -107,7 +109,7 @@
     <div class="loader" *ngIf="isLoading2" fxLayoutAlign="center center" style="padding-top: 30px;">
       <div fxLayout="column">
         <img src="../../../../assets/lab-web.png" alt="" class="lab-loading" />
-        <p style="font-family: 'binaria'; color: white; padding-left: 50px;">
+        <p style="font-family: 'Roboto', sans-serif; color: white; padding-left: 50px;">
           Loading...
         </p>
       </div>

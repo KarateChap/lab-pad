@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Sale } from '../models/sale.model';
 import { BackendService } from '../services/backend.service';
+import { ContractConfigComponent } from './contract-config/contract-config.component';
 import { DetailsComponent } from './details/details.component';
 
 
@@ -18,6 +19,7 @@ export class AdminComponent implements OnInit {
   saleSubs: Subscription;
   isLoading = false;
 
+
   constructor(private backendService: BackendService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -27,6 +29,7 @@ export class AdminComponent implements OnInit {
       this.isLoading = false;
       console.log(this.sales);
     })
+
   }
 
   onToggleChanges(event: any){
@@ -42,12 +45,9 @@ export class AdminComponent implements OnInit {
       this.backendService.fetchSale(this.toggleValue.toLowerCase());
       this.isLoading = true;
     }
-    if(this.sales[index].status == 'accepted'){
-      this.backendService.onSetActiveSale(id);
-      this.toggleValue = 'Active';
-      this.backendService.fetchSale(this.toggleValue.toLowerCase());
-      this.isLoading = true;
-    }
+    // if(this.sales[index].status == 'accepted'){
+    //   this.toggleValue = 'Active';
+    // }
     if(this.sales[index].status == 'active'){
       this.backendService.onSetCompletedSale(id);
       this.toggleValue = 'Completed';
@@ -73,8 +73,21 @@ export class AdminComponent implements OnInit {
 
   onOpenDetails(index: number){
     this.dialog.open(DetailsComponent, {data: {
-
       sale: this.sales[index]
     }})
+  }
+
+  onSetContractAddress(index: number){
+    let dialogRef = this.dialog.open(ContractConfigComponent, {data: {
+      sale: this.sales[index]
+    }});
+
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result){
+        this.toggleValue = 'Active';
+        this.backendService.fetchSale(this.toggleValue.toLowerCase());
+        this.isLoading = true;
+      }
+    })
   }
 }

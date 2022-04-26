@@ -70,8 +70,8 @@ export class TokensaleComponent implements OnInit, OnDestroy {
     if (this.currentTimeStamp < this.presale.endTime) {
       if (this.presale.hasMaxMinAlloc) {
         if (
-          this.croValue >= this.presale.minAlloc &&
-          this.croValue <= this.presale.maxAlloc
+          +this.croValue >= +this.presale.minAlloc &&
+          +this.croValue <= +this.presale.maxAlloc
         ) {
           this.walletService.depositCro(
             this.croValue,

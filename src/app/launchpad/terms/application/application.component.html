@@ -11,8 +11,8 @@
       *KEEP IN MIND* Submit your application atleast 1 week prior your desired
       launch Date!
     </p>
-    <p>
-      You will need to have {{ labFee }} $LAB tokens in order to submit an
+    <p *ngIf="labFee">
+      You will need to have {{ labFee.toFixed(2) }} $LAB tokens = ($3000) in order to submit an
       application.
     </p>
     <p>
@@ -203,9 +203,9 @@
         color="success"
         type="button"
         (click)="onApproveTransaction()"
-
+        [disabled]="applicationForm.invalid"
       >
-      <!-- [disabled]="applicationForm.invalid" -->
+
         {{ isApproved == true ? "Submit" : "Approve" }}
       </button>
     </div>

@@ -26,8 +26,8 @@
       <p class="left-text">Target Launch Date:</p>
       <p class="left-text">Target Launch Time:</p>
       <p class="left-text">Target End Date:</p>
-      <p class="left-text">Max Alloc (in CRO)</p>
-      <p class="left-text">Min Alloc (in CRO)</p>
+      <p class="left-text" *ngIf="sale.hasMaxMin">Max Alloc (in CRO)</p>
+      <p class="left-text" *ngIf="sale.hasMaxMin">Min Alloc (in CRO)</p>
     </div>
     <div fxLayoutAlign="start start" fxLayout="column" class="right-div">
       <p class="right-text" [cdkCopyToClipboard]="sale.projectName" (click)="onCopyText()">{{ sale.projectName }}</p>

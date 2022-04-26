@@ -18,12 +18,13 @@
 }
 
 .links {
-  font-family: century Gothic;
+  font-family: 'Roboto', sans-serif;
   font-size: 13px;
   font-weight: bold;
   margin-left: auto;
   margin-right: 30vh;
   cursor: pointer;
+  letter-spacing: 0.1em;
 }
 
 .button{
@@ -60,7 +61,7 @@
 
 .small-heading{
   color: white;
-  font-family: 'binaria-bold';
+  font-family: 'Roboto', sans-serif;
   background-color: black;
   padding-top: 10px;
   height: 70px;
@@ -88,7 +89,7 @@
 }
 
 .menu-links{
-  font-family: Century Gothic;
+  font-family: 'Roboto', sans-serif;
   color: white;
   font-size: 17px;
   text-align: center;

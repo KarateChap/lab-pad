@@ -19,7 +19,8 @@
   >
     <p class="link" routerLink="/launchpad">Launchpad</p>
     <p class="sm-link"><a href="https://dex.thelaboratory.farm">Exchange</a></p>
-    <p class="link">NFT Staking</p>
+    <p class="link"><a href="https://thelaboratory.farm/NFTStaking">NFT Staking</a></p>
+    <p class="link"><a href="https://thelaboratory.farm/TokenStaking">Token Staking</a></p>
     <p class="link" routerLink="/login">Login</p>
     <p class="link button" (click)="onConnectWallet()">{{account ? (account | shorten: 10) : 'Connect Wallet'}}</p>
   </div>
@@ -37,9 +38,11 @@
   <div class="menu-div" *ngIf="menuClicked" fxLayoutAlign="center center">
     <div class="menu-links" fxLayoutGap="20px" fxLayout="column">
       <p class="sm-link" routerLink="/launchpad" (click)="onMenuClicked()">Launchpad</p>
-      <p class="sm-link" (click)="onMenuClicked()">Exchange</p>
-      <p class="sm-link" (click)="onMenuClicked()">NFT Staking</p>
+      <p class="sm-link" (click)="onMenuClicked()"><a href="https://dex.thelaboratory.farm">Exchange</a></p>
+      <p class="sm-link" (click)="onMenuClicked()"><a href="https://thelaboratory.farm/NFTStaking">NFT Staking</a></p>
+      <p class="sm-link" (click)="onMenuClicked()"><a href="https://thelaboratory.farm/TokenStaking">Token Staking</a></p>
       <p class="link" routerLink="/login">Login</p>
+
       <p class="sm-link sm-button" (click)="onConnectWallet()">{{account ? (account | shorten: 10) : 'Connect Wallet'}}</p>
     </div>
   </div>

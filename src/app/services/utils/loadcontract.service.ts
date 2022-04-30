@@ -27,7 +27,7 @@ export class LoadContractService {
     let _contract = this.contract(Artifact);
     _contract.setProvider(provider);
     await _contract
-    .at('0x3B6E0c3Ce201795600d8277c7cb3Ff06952117aF') // Ticken cronos
+    .at('0x3B6E0c3Ce201795600d8277c7cb3Ff06952117aF') // Ticket cronos
       // .at('0xf7fCE252C2578081be3D8BD91609bC7Fb0CFeb39') rinkeby
       .then((result: any) => {
         _contract = result;

@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { providers } from 'ethers'
 import Web3 from 'web3';
 import detectEthereumProvider from '@metamask/detect-provider';
 import { LoadContractService } from './utils/loadcontract.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Presale } from '../models/presale.model';
+import Web3Modal from 'web3Modal';
+import { DeFiConnector } from 'deficonnect';
+import WalletConnectProvider from '@walletconnect/web3-provider';
+
 
 declare const window: any;
 
@@ -21,8 +26,8 @@ export class WalletService {
   accountsChange = new Subject<any>();
   shouldReload = false;
   reloadChange = new Subject<boolean>();
-  provider: any;
   canConnectToContract = this.account && this.web3Api.contract;
+  provider: any;
 
   // Lab Token Sale Application
   ierc20Contract: any;
@@ -39,6 +44,9 @@ export class WalletService {
 
   presale: Presale;
   presaleChange = new Subject<Presale>();
+
+
+
 
   openSuccessSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
@@ -66,20 +74,105 @@ export class WalletService {
     });
   }
 
-  async connectWallet() {
-    this.provider = await detectEthereumProvider();
+  async connectWallet(){
 
-    if (this.provider) {
-      this.setAccountListener(this.provider);
-      this.provider.request({ method: 'eth_requestAccounts' });
-      this.web3Api = { web3: new Web3(this.provider), provider: this.provider };
-      this.Web3Change.next(this.web3Api);
-      this.canConnectToContract = this.account && this.web3Api.contract;
-      this.getAccount();
-    } else {
-      console.error('Please install Metamask.');
-    }
+    const providerOptions = {
+    //   'custom-wc': {
+    //     display: {
+    //         // logo: require(`images/wallets/wallet-connect.svg`),
+    //         name: 'Wallet Connect',
+    //         description: 'Scan your WalletConnect to Connect',
+    //     },
+    //     package: WalletConnectProvider,
+    //     options: {
+    //         chainId: 25,
+    //         rpc: {
+    //             1: 'https://evm-cronos.crypto.org/',
+    //             25: 'https://evm-cronos.crypto.org/',
+    //         },
+    //     },
+    //     connector: async (ProviderPackage: any, options: any) => {
+    //         const provider = new ProviderPackage(options);
+
+    //         await provider.enable();
+
+    //         return provider;
+    //     },
+    // },
+      "custom-cdc": {
+        display: {
+            logo: "https://bcash.online/repository/coins/cro.png",
+            name: "Crypto.com",
+            description: "Crypto.com DeFi Wallet | Extension"
+        },
+        options: {
+            supportedChainIds: [25, 338],
+            rpc: {
+                25: 'https://evm-cronos.crypto.org/',
+                338: "https://cronos-testnet-3.crypto.org:8545/",
+                31337: "http://127.0.0.1:8545/"
+            },
+            pollingInterval: 15000,
+        },
+        package: DeFiConnector,
+        connector: async (packageConnector: any, options: any) => {
+            const provider = new packageConnector(
+                {
+                    name: 'Crypto.com Cronos',
+                    supprtedChainTypes: ['eth'],
+                    supportedChainTypes: ['eth'],
+                    eth: options,
+                    cosmos: null,
+                }
+            );
+
+            await provider.activate();
+            return provider.getProvider();
+        }
+    },
+    };
+
+    console.log("tae");
+    const web3Modal = new Web3Modal({
+      theme: "dark",
+      cacheProvider: true,
+      providerOptions
+    });
+
+    console.log("HEHE")
+
+    this.provider = await web3Modal.connect();
+    // const web3 = new Web3(this.provider);
+    this.web3Api = { web3: new Web3(this.provider), provider: this.provider };
+    this.Web3Change.next(this.web3Api);
+    this.canConnectToContract = this.account && this.web3Api.contract;
+    this.getAccount();
   }
+
+  // async loadWeb3Modal(){
+  //   this.web3Modal = new Web3Modal({
+  //     network: "mainnet",
+  //     cacheProvider: true,
+  //     providerOptions: {}
+  //   });
+  // }
+
+  // async connectWallet() {
+  //   this.provider = await detectEthereumProvider();
+
+  //   if (this.provider) {
+  //     this.setAccountListener(this.provider);
+  //     this.provider.request({ method: 'eth_requestAccounts' });
+  //     this.web3Api = { web3: new Web3(this.provider), provider: this.provider };
+  //     this.Web3Change.next(this.web3Api);
+  //     this.canConnectToContract = this.account && this.web3Api.contract;
+  //     this.getAccount();
+  //   } else {
+  //     console.error('Please install Metamask.');
+  //   }
+  // }
+
+
 
   async getAccount() {
     const accounts = await this.web3Api.web3.eth.getAccounts();

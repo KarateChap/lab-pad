@@ -25,10 +25,13 @@
     "@metamask/detect-provider": "^1.2.0",
     "@openzeppelin/contracts": "^4.5.0",
     "@truffle/contract": "^4.5.6",
+    "@walletconnect/web3-provider": "^1.7.8",
     "angular-progress-bar": "^1.0.11",
     "assert": "^2.0.0",
     "browser": "^0.2.6",
     "crypto-browserify": "^3.12.0",
+    "deficonnect": "^1.6.14-dev.1",
+    "ethers": "^5.6.5",
     "firebase": "^7.0 || ^8.0",
     "https-browserify": "^1.0.0",
     "os-browserify": "^0.3.0",
@@ -41,6 +44,7 @@
     "tslib": "^2.3.0",
     "url": "^0.11.0",
     "web3": "^1.7.3",
+    "web3modal": "^1.9.7",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

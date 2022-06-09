@@ -2126,6 +2126,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
+@walletconnect/browser-utils
+Apache-2.0
+
+@walletconnect/client
+Apache-2.0
+
+@walletconnect/core
+Apache-2.0
+
 @walletconnect/crypto
 MIT
 MIT License
@@ -2198,6 +2207,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+@walletconnect/http-connection
+Apache-2.0
+
+@walletconnect/iso-crypto
+Apache-2.0
+
 @walletconnect/jsonrpc-utils
 MIT
 MIT License
@@ -2221,6 +2236,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+@walletconnect/qrcode-modal
+Apache-2.0
 
 @walletconnect/randombytes
 MIT
@@ -2269,6 +2287,15 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+@walletconnect/socket-transport
+Apache-2.0
+
+@walletconnect/utils
+Apache-2.0
+
+@walletconnect/web3-provider
+Apache-2.0
 
 @walletconnect/window-getters
 MIT

@@ -77,28 +77,28 @@ export class WalletService {
   async connectWallet(){
 
     const providerOptions = {
-    //   'custom-wc': {
-    //     display: {
-    //         // logo: require(`images/wallets/wallet-connect.svg`),
-    //         name: 'Wallet Connect',
-    //         description: 'Scan your WalletConnect to Connect',
-    //     },
-    //     package: WalletConnectProvider,
-    //     options: {
-    //         chainId: 25,
-    //         rpc: {
-    //             1: 'https://evm-cronos.crypto.org/',
-    //             25: 'https://evm-cronos.crypto.org/',
-    //         },
-    //     },
-    //     connector: async (ProviderPackage: any, options: any) => {
-    //         const provider = new ProviderPackage(options);
+      'custom-wc': {
+        display: {
+            // logo: require(`images/wallets/wallet-connect.svg`),
+            name: 'Wallet Connect',
+            description: 'Scan your WalletConnect to Connect',
+        },
+        package: WalletConnectProvider,
+        options: {
+            chainId: 25,
+            rpc: {
+                1: 'https://evm-cronos.crypto.org/',
+                25: 'https://evm-cronos.crypto.org/',
+            },
+        },
+        connector: async (ProviderPackage: any, options: any) => {
+            const provider = new ProviderPackage(options);
 
-    //         await provider.enable();
+            await provider.enable();
 
-    //         return provider;
-    //     },
-    // },
+            return provider;
+        },
+    },
       "custom-cdc": {
         display: {
             logo: "https://bcash.online/repository/coins/cro.png",

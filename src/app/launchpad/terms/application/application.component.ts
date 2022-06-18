@@ -4,6 +4,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Subscription, take} from 'rxjs';
 import { BackendService } from 'src/app/services/backend.service';
 import { WalletService } from 'src/app/services/wallet.service';
+import { NgxCsvParser, NgxCSVParserError } from 'ngx-csv-parser';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-application',
@@ -18,11 +20,15 @@ export class ApplicationComponent implements OnInit, OnDestroy {
   labFee: number;
   isLoading = false;
   account: string = '';
-
+  hasWhitelist = false;
+  csvFileName = '';
+  addresses: string [] = [];
   constructor(
     private backendService: BackendService,
     private walletService: WalletService,
-    private dialogRef: MatDialogRef<ApplicationComponent>
+    private dialogRef: MatDialogRef<ApplicationComponent>,
+    private ngxCsvParser: NgxCsvParser,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -77,12 +83,12 @@ export class ApplicationComponent implements OnInit, OnDestroy {
           Validators.maxLength(1),
         ],
       }),
-      hasMaxMin: new FormControl(false)
+      hasMaxMin: new FormControl(false),
+      hasWhitelist: new FormControl(false),
     });
 
     this.subscription.push(this.walletService.onSubmitChange.subscribe(() => {
       this.onSubmit();
-      console.log("SHETTT");
     }))
   }
 
@@ -93,6 +99,36 @@ export class ApplicationComponent implements OnInit, OnDestroy {
     }else {
       this.applicationForm.removeControl('maxAlloc');
       this.applicationForm.removeControl('minAlloc');
+    }
+  }
+
+  onHasWhitelist(event: any){
+    this.hasWhitelist = event.checked;
+    if(this.hasWhitelist == false){
+      this.csvFileName = '';
+    }
+    else {
+      this.snackBar.open('Upload a CSV file with no header that contains only 1 tab with all the Whitelisted Addresses', 'close', {
+        panelClass: ['green-snackbar'],
+      });
+    }
+  }
+
+  fileChangeListener(event: any){
+    const files = event.srcElement.files;
+
+    this.ngxCsvParser
+    .parse(files[0], { header: false, delimiter: ',' })
+    .pipe()
+    .subscribe((result: any) => {
+
+      this.addresses = [];
+      result.forEach((element: any) => {
+        this.addresses.push(element[0]);
+      });
+      this.csvFileName = event.target.files[0].name;
+    }),(error: NgxCSVParserError) => {
+      console.log('Error', error);
     }
   }
 
@@ -126,6 +162,8 @@ export class ApplicationComponent implements OnInit, OnDestroy {
         duration: this.applicationForm.value.duration,
         status: 'pending',
         hasMaxMin: this.applicationForm.value.hasMaxMin,
+        hasWhitelist: this.hasWhitelist,
+        addresses: this.addresses,
         crowdsaleContract: ''
       });
     }
@@ -148,6 +186,8 @@ export class ApplicationComponent implements OnInit, OnDestroy {
         hasMaxMin: this.applicationForm.value.hasMaxMin,
         maxAlloc: this.applicationForm.value.maxAlloc,
         minAlloc: this.applicationForm.value.minAlloc,
+        hasWhitelist: this.hasWhitelist,
+        addresses: this.addresses,
         crowdsaleContract: ''
       });
     }

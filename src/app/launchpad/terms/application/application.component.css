@@ -67,6 +67,16 @@ input {
   }
 }
 
+.upload-csv {
+  background-color: green;
+  border-radius: 5px;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all ease-in-out 0.05s;
+}
+
 
 @media screen and (max-width: 599px) {
   .contents{

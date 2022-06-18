@@ -97,6 +97,16 @@
           >
           </div>
 
+          <div class="example-full-width">
+            <mat-checkbox
+            class="checkbox "
+            style="margin-top: 15px;"
+            formControlName="hasWhitelist"
+            (change)="onHasWhitelist($event)"
+            >Has Whitelist?</mat-checkbox
+          >
+          </div>
+
         </div>
 
         <div fxLayout="column" class="form">
@@ -139,7 +149,7 @@
             <mat-label>Sale Start Time in UTC</mat-label>
             <input
               matInput
-              placeholder="Ex. UTC 0100"
+              placeholder="Ex. 8:00 AM"
               formControlName="startTime"
             />
           </mat-form-field>
@@ -161,6 +171,35 @@
             <mat-label>Min Allocation (in CRO)</mat-label>
             <input matInput placeholder="Ex. 1" formControlName="minAlloc" />
           </mat-form-field>
+
+
+        <button
+          mat-raised-button
+          color="primary"
+          disabled
+          *ngIf="!hasWhitelist"
+          style="width: 100% !important;"
+        >
+          Upload Whitelist CSV
+        </button>
+
+          <label fxFlexFill *ngIf="hasWhitelist">
+            <div class="upload-csv">Upload Whitelist CSV</div>
+            <input
+              style="visibility: hidden"
+              type="file"
+              #fileImportInput
+              name="File Upload"
+              id="csvFileUpload"
+              (change)="fileChangeListener($event)"
+              accept=".csv"
+            />
+          </label>
+
+          <div fxLayoutAlign="center center" *ngIf="csvFileName.length > 0">
+            <p  style="color: black; margin-left: -10px; margin-top: -10px;">{{csvFileName}}</p>
+          </div>
+
         </div>
       </div>
     </div>
@@ -198,7 +237,7 @@
         Cancel
       </button>
 
-      <button
+      <!-- <button
         mat-raised-button
         color="success"
         type="button"
@@ -207,7 +246,16 @@
       >
 
         {{ isApproved == true ? "Submit" : "Approve" }}
-      </button>
+      </button> -->
+
+      <button
+      mat-raised-button
+      color="success"
+      type="submit"
+      [disabled]="applicationForm.invalid"
+    >
+    Submit
+    </button>
     </div>
   </form>
 </div>

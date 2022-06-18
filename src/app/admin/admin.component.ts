@@ -25,6 +25,7 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     this.backendService.fetchSale(this.toggleValue.toLowerCase());
     this.saleSubs = this.backendService.saleChanged.subscribe(sale => {
+      console.log(this.sales);
       this.sales = sale;
       this.isLoading = false;
       console.log(this.sales);

@@ -17,5 +17,7 @@ export interface Sale {
   hasMaxMin: boolean;
   maxAlloc?: string;
   minAlloc?: string;
+  hasWhitelist: boolean;
+  addresses: string [];
   crowdsaleContract: string;
 }

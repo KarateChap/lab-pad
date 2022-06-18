@@ -49,6 +49,7 @@
       <p class="right-text" *ngIf="sale.hasMaxMin" [cdkCopyToClipboard]="sale.minAlloc? sale.minAlloc : 'N/A'" (click)="onCopyText()">{{ sale.minAlloc }}</p>
     </div>
   </div>
+
   </div>
 
   <div fxLayoutAlign="center center" fxLayout="column">
@@ -56,5 +57,11 @@
     <p class="projectDescription" [cdkCopyToClipboard]="sale.projectDescription" (click)="onCopyText()">{{ sale.projectDescription}}</p>
   </div>
 
+  <div *ngIf="sale.addresses" class="Whitelisted">
+    <p class="projectDescription centered"> Whitelisted Addresses</p>
+    <p *ngFor="let address of sale.addresses" class="centered">
+      {{address}}
+    </p>
+  </div>
 
 </div>

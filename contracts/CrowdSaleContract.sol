@@ -35,64 +35,105 @@ contract CrowdSale is Ownable, ReentrancyGuard {
     uint256 public minAlloc; // minimum token participation allocation
 
     bool public isPresaleStop; // presale pause/complete function
+    bool public hasWhitelistSetting;
+
+    //STRUCT FOR WHITELIST
+
+    struct Buyer{
+        uint256 partipation;
+        uint256 isWhitelisted;
+    }
+
+    mapping(address => Buyer) public buyers;
 
     mapping(address => uint256) public presaleParticipation; // participation amount of a wallet address in terms of tokens
 
-    constructor(IERC20 _tokenInstance) {
-        tokenHardcap = 100 ether;
-        croHardcap = 10 ether;
-        soldTokens = 0;
-        croRaised = 0;
-        hasMaxMinAlloc = true;
-        maxAlloc = 1000000000000000000; // 1 ether
-        minAlloc = 500000000000000000; // 0.5 ether
-        isPresaleStop = false;
+    constructor(IERC20 _tokenInstance,
+                uint256 _maxAlloc,
+                uint256 _tokenHardcap,
+                uint256 _croHardcap,
+                bool _hasWhitelistSettings,
+                bool _hasMaxMinAlloc,
+                uint256 _startTime,
+                uint256 _endTime,
+                uint256 _ownerPercent,
+                uint256 _labPercent,
+                address _ownerFundReceiver,
+                address _labFeeFundReceiver,
+                address _devFeeFundReceiver) {
+        tokenHardcap = _tokenHardcap;
+        croHardcap = _croHardcap;
+        hasWhitelistSetting = _hasWhitelistSettings;
+        hasMaxMinAlloc = _hasMaxMinAlloc;
+        maxAlloc = _maxAlloc;
+        minAlloc = _minAlloc;
         tokenInstance = _tokenInstance;
-        startTime = 1650661200;
-        endTime = 1650661500;
-        isPresaleStop = true;
-        ownerPercent = 95;
-        labPercent = 3;
-        devPercent = 2;
-        ownerFundReceiver = 0x3bA8E70a107491864D783aBc6d3767be3884CE84;
-        labFeeFundReceiver = 0x3bA8E70a107491864D783aBc6d3767be3884CE84;
-        devFeeFundReceiver = 0x3bA8E70a107491864D783aBc6d3767be3884CE84;
+        startTime = _startTime;
+        endTime = _endTime;
+        ownerPercent = _ownerPercent;
+        labPercent = _labPercent;
+        devPercent = _devPercent;
+        ownerFundReceiver = _ownerFundReceiver;
+        labFeeFundReceiver = _labFeeFundReceiver;
+        devFeeFundReceiver = _devFeeFundReceiver;
     }
 
-    function checkPresaleDuration() public {
-        if (block.timestamp > startTime && block.timestamp < endTime) {
-            isPresaleStop = false;
-        } else {
-            isPresaleStop = true;
+    function addToWhitelist(address[] _whitelistedAddress) external onlyOwner{
+        for(uint256 index=0; index < _whitelistedAddress.length; index++){
+            buyers[_whitelistedAddress[index]].isWhitelisted = 1;
         }
     }
 
     // payable functions
     function presaleBuy() external payable {
-        checkPresaleDuration();
-        uint256 tokenPrice = tokenHardcap.div(croHardcap);
         require(
-            isPresaleStop == false,
-            "CrowdSale: Cannot Participate on presale"
+            block.timestamp > startTime && block.timestamp < endTime,
+            "Crowdsale: hasn't started or has ended"
         );
+        uint256 tokenPrice = tokenHardcap.div(croHardcap);
         require((croRaised.add(msg.value) <= croHardcap), "CrowdSale: presale already sold out");
-        if (hasMaxMinAlloc == true) {
+        if(hasWhitelistSetting){
             require(
-                msg.value.add(presaleParticipation[msg.sender].div(tokenPrice)) <= maxAlloc,
-                "CrowdSale: amount is greater than maximum allocation"
+                buyers.isWhitelisted == 1,
+                "CrowdSale: You're not whitelisted"
             );
-            require(
-                msg.value >= minAlloc,
-                "CrowdSale: amount is less than minimum allocation"
-            );
+            if (hasMaxMinAlloc == true) {
+                require(
+                    msg.value.add(buyer[msg.sender].participation.div(tokenPrice)) <= maxAlloc,
+                    "CrowdSale: amount is greater than maximum allocation"
+                );
+                require(
+                    msg.value >= minAlloc,
+                    "CrowdSale: amount is less than minimum allocation"
+                );
 
-            presaleParticipation[msg.sender] += (msg.value.mul(tokenPrice));
-            soldTokens += (msg.value.mul(tokenPrice));
-            croRaised += msg.value;
+                buyer[msg.sender].participation += (msg.value.mul(tokenPrice));
+                soldTokens += (msg.value.mul(tokenPrice));
+                croRaised += msg.value;
+            } else {
+                buyer[msg.sender].partipation += (msg.value.mul(tokenPrice));
+                soldTokens += (msg.value.mul(tokenPrice));
+                croRaised += msg.value;
+            }
         } else {
-            presaleParticipation[msg.sender] += (msg.value.mul(tokenPrice));
-            soldTokens += (msg.value.mul(tokenPrice));
-            croRaised += msg.value;
+            if (hasMaxMinAlloc == true) {
+                require(
+                    msg.value.add(buyer[msg.sender].partipation.div(tokenPrice)) <= maxAlloc,
+                    "CrowdSale: amount is greater than maximum allocation"
+                );
+                require(
+                    msg.value >= minAlloc,
+                    "CrowdSale: amount is less than minimum allocation"
+                );
+
+                buyer[msg.sender].partipation += (msg.value.mul(tokenPrice));
+                soldTokens += (msg.value.mul(tokenPrice));
+                croRaised += msg.value;
+            } else {
+                buyer[msg.sender].partipation += (msg.value.mul(tokenPrice));
+                soldTokens += (msg.value.mul(tokenPrice));
+                croRaised += msg.value;
+            }
         }
     }
 
@@ -113,15 +154,18 @@ contract CrowdSale is Ownable, ReentrancyGuard {
     // claim function
 
     function claimPresale() external nonReentrant {
-        checkPresaleDuration();
+        require(
+            block.timestamp > startTime && block.timestamp < endTime,
+            "Crowdsale: hasn't started or has ended"
+        );
         require(isPresaleStop == true, "CrowdSale: cannot claim tokens yet");
         require(
-            presaleParticipation[msg.sender] > 0,
+            buyer[msg.sender].participation > 0,
             "Crowdsale: you have no tokens to claim"
         );
         require(tokenInstance.balanceOf(address(this)) >= 0, "CrowdSale: Insufficient Token Balance to distribute");
-        uint256 tempBalance = presaleParticipation[msg.sender];
-        presaleParticipation[msg.sender] = 0;
+        uint256 tempBalance = buyer[msg.sender].participation;
+        buyer[msg.sender].participation = 0;
         tokenInstance.transfer(msg.sender, tempBalance);
     }
 

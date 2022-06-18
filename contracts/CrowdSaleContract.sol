@@ -34,7 +34,6 @@ contract CrowdSale is Ownable, ReentrancyGuard {
     uint256 public maxAlloc; // maximum token participation allocation
     uint256 public minAlloc; // minimum token participation allocation
 
-    bool public isPresaleStop; // presale pause/complete function
     bool public hasWhitelistSetting;
 
     //STRUCT FOR WHITELIST

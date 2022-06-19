@@ -14,11 +14,11 @@ contract CrowdSale is Ownable, ReentrancyGuard {
 
     address public ownerFundReceiver; // receiving address of owner
     address public labFeeFundReceiver; // receiving address of lab
-    address public devFeeFundReceiver; // receiving address of dev
+    // address public devFeeFundReceiver; // receiving address of dev
 
     uint256 public ownerPercent; // percentage of owner in terms of total collected CRO
     uint256 public labPercent; // percentage of lab in terms of total collected CRO
-    uint256 public devPercent; // percentage of dev in terms of total collected CRO
+    // uint256 public devPercent; // percentage of dev in terms of total collected CRO
 
     //PRESALE VARIABLES
 
@@ -30,7 +30,7 @@ contract CrowdSale is Ownable, ReentrancyGuard {
     uint256 public startTime; // starting time of presale in unix
     uint256 public endTime; // ending time of presale in unix
 
-    bool public hasMaxMinAlloc; // check if the presale has max participation allocation per wallet
+    // bool public hasMaxMinAlloc; // check if the presale has max participation allocation per wallet
     uint256 public maxAlloc; // maximum token participation allocation
     uint256 public minAlloc; // minimum token participation allocation
 
@@ -39,20 +39,20 @@ contract CrowdSale is Ownable, ReentrancyGuard {
     //STRUCT FOR WHITELIST
 
     struct Buyer{
-        uint256 partipation;
+        uint256 participation;
         uint256 isWhitelisted;
     }
 
     mapping(address => Buyer) public buyers;
 
-    mapping(address => uint256) public presaleParticipation; // participation amount of a wallet address in terms of tokens
+    // mapping(address => uint256) public presaleParticipation; // participation amount of a wallet address in terms of tokens
 
     constructor(IERC20 _tokenInstance,
                 uint256 _maxAlloc,
+                uint256 _minAlloc,
                 uint256 _tokenHardcap,
                 uint256 _croHardcap,
                 bool _hasWhitelistSettings,
-                bool _hasMaxMinAlloc,
                 uint256 _startTime,
                 uint256 _endTime,
                 uint256 _ownerPercent,
@@ -63,7 +63,6 @@ contract CrowdSale is Ownable, ReentrancyGuard {
         tokenHardcap = _tokenHardcap;
         croHardcap = _croHardcap;
         hasWhitelistSetting = _hasWhitelistSettings;
-        hasMaxMinAlloc = _hasMaxMinAlloc;
         maxAlloc = _maxAlloc;
         minAlloc = _minAlloc;
         tokenInstance = _tokenInstance;
@@ -71,13 +70,11 @@ contract CrowdSale is Ownable, ReentrancyGuard {
         endTime = _endTime;
         ownerPercent = _ownerPercent;
         labPercent = _labPercent;
-        devPercent = _devPercent;
         ownerFundReceiver = _ownerFundReceiver;
         labFeeFundReceiver = _labFeeFundReceiver;
-        devFeeFundReceiver = _devFeeFundReceiver;
     }
 
-    function addToWhitelist(address[] _whitelistedAddress) external onlyOwner{
+    function addToWhitelist(address[] memory _whitelistedAddress) external onlyOwner{
         for(uint256 index=0; index < _whitelistedAddress.length; index++){
             buyers[_whitelistedAddress[index]].isWhitelisted = 1;
         }
@@ -93,12 +90,12 @@ contract CrowdSale is Ownable, ReentrancyGuard {
         require((croRaised.add(msg.value) <= croHardcap), "CrowdSale: presale already sold out");
         if(hasWhitelistSetting){
             require(
-                buyers.isWhitelisted == 1,
+                buyers[msg.sender].isWhitelisted == 1,
                 "CrowdSale: You're not whitelisted"
             );
-            if (hasMaxMinAlloc == true) {
+            if (maxAlloc > 0) {
                 require(
-                    msg.value.add(buyer[msg.sender].participation.div(tokenPrice)) <= maxAlloc,
+                    msg.value.add(buyers[msg.sender].participation.div(tokenPrice)) <= maxAlloc,
                     "CrowdSale: amount is greater than maximum allocation"
                 );
                 require(
@@ -106,18 +103,18 @@ contract CrowdSale is Ownable, ReentrancyGuard {
                     "CrowdSale: amount is less than minimum allocation"
                 );
 
-                buyer[msg.sender].participation += (msg.value.mul(tokenPrice));
+                buyers[msg.sender].participation += (msg.value.mul(tokenPrice));
                 soldTokens += (msg.value.mul(tokenPrice));
                 croRaised += msg.value;
             } else {
-                buyer[msg.sender].partipation += (msg.value.mul(tokenPrice));
+                buyers[msg.sender].participation += (msg.value.mul(tokenPrice));
                 soldTokens += (msg.value.mul(tokenPrice));
                 croRaised += msg.value;
             }
         } else {
-            if (hasMaxMinAlloc == true) {
+            if (maxAlloc > 0) {
                 require(
-                    msg.value.add(buyer[msg.sender].partipation.div(tokenPrice)) <= maxAlloc,
+                    msg.value.add(buyers[msg.sender].participation.div(tokenPrice)) <= maxAlloc,
                     "CrowdSale: amount is greater than maximum allocation"
                 );
                 require(
@@ -125,11 +122,11 @@ contract CrowdSale is Ownable, ReentrancyGuard {
                     "CrowdSale: amount is less than minimum allocation"
                 );
 
-                buyer[msg.sender].partipation += (msg.value.mul(tokenPrice));
+                buyers[msg.sender].participation += (msg.value.mul(tokenPrice));
                 soldTokens += (msg.value.mul(tokenPrice));
                 croRaised += msg.value;
             } else {
-                buyer[msg.sender].partipation += (msg.value.mul(tokenPrice));
+                buyers[msg.sender].participation += (msg.value.mul(tokenPrice));
                 soldTokens += (msg.value.mul(tokenPrice));
                 croRaised += msg.value;
             }
@@ -141,13 +138,11 @@ contract CrowdSale is Ownable, ReentrancyGuard {
     }
 
     function distributeCRO() public payable onlyOwner nonReentrant {
-        uint256 ownerCRO = address(this).balance * ownerPercent / 100;
-        uint256 labCRO = address(this).balance * labPercent / 100;
-        uint256 devCRO = address(this).balance * devPercent / 100;
+        uint256 ownerCRO = address(this).balance * ownerPercent / 100000;
+        uint256 labCRO = address(this).balance * labPercent / 100000;
 
         payable(ownerFundReceiver).transfer(ownerCRO);
         payable(labFeeFundReceiver).transfer(labCRO);
-        payable(devFeeFundReceiver).transfer(devCRO);
     }
 
     // claim function
@@ -157,14 +152,13 @@ contract CrowdSale is Ownable, ReentrancyGuard {
             block.timestamp > startTime && block.timestamp < endTime,
             "Crowdsale: hasn't started or has ended"
         );
-        require(isPresaleStop == true, "CrowdSale: cannot claim tokens yet");
         require(
-            buyer[msg.sender].participation > 0,
+            buyers[msg.sender].participation > 0,
             "Crowdsale: you have no tokens to claim"
         );
         require(tokenInstance.balanceOf(address(this)) >= 0, "CrowdSale: Insufficient Token Balance to distribute");
-        uint256 tempBalance = buyer[msg.sender].participation;
-        buyer[msg.sender].participation = 0;
+        uint256 tempBalance = buyers[msg.sender].participation;
+        buyers[msg.sender].participation = 0;
         tokenInstance.transfer(msg.sender, tempBalance);
     }
 
@@ -172,10 +166,6 @@ contract CrowdSale is Ownable, ReentrancyGuard {
 
     function changeTokenInstance(IERC20 _tokenInstance) external onlyOwner {
         tokenInstance = _tokenInstance;
-    }
-
-    function changeHasMaxMinAlloc(bool _hasMaxMinAlloc) external onlyOwner {
-        hasMaxMinAlloc = _hasMaxMinAlloc;
     }
 
     function changeMaxAlloc(uint256 _maxAlloc) external onlyOwner {
@@ -208,23 +198,12 @@ contract CrowdSale is Ownable, ReentrancyGuard {
         labFeeFundReceiver = _labFeeFundReceiver;
     }
 
-    function changeDevFeeFundReceiver(address _ownerFundReceiver)
-        external
-        onlyOwner
-    {
-        devFeeFundReceiver = _ownerFundReceiver;
-    }
-
     function changeOwnerPercent(uint256 _ownerPercent) external onlyOwner {
         ownerPercent = _ownerPercent;
     }
 
     function changeLabPercent(uint256 _labPercent) external onlyOwner {
         labPercent = _labPercent;
-    }
-
-    function changeDevPercent(uint256 _devPercent) external onlyOwner {
-        devPercent = _devPercent;
     }
 
     function changeTokenHardcap(uint256 _tokenHardcap) external onlyOwner {
@@ -242,9 +221,5 @@ contract CrowdSale is Ownable, ReentrancyGuard {
 
     function getContractBalance() external view returns (uint256) {
         return address(this).balance;
-    }
-
-    function getIsPresaleStop() external view returns (bool) {
-        return isPresaleStop;
     }
 }
